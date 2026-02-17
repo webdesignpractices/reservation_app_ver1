@@ -30,4 +30,8 @@ class Appointment extends Model
     public function staff(){
         return $this->belongsTo(Staff::class);
     }
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+        ];
 }
