@@ -16,13 +16,17 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        $days = [];
+        for($i = 0; $i < 7; $i++){
+            $days[] = today()->addDays($i);
+        }
         $slots = CarbonPeriod::since('9:00')->minutes(30)->until('18:00');
         $timeLists = [];
         foreach($slots as $slot){
             $timeLists[] = $slot->format('H:i');
         }
         
-        return view('appointments.index',['timeLists' => $timeLists]);
+        return view('appointments.index',['timeLists' => $timeLists,'days' => $days]);
     }
 
     /**

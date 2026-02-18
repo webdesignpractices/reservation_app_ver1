@@ -5,11 +5,30 @@
     <title>Document</title>
 </head>
 <body>
-    @foreach($timeLists as $timeList)
-    <div class="time-slot" style="margin-bottom: 10px;">
-        <span>{{ $timeList }}</span>
-        <button>予約する</button>
-    </div>    
-    @endforeach
+    <table>
+        <thead>
+            <tr>
+                <th>時間</th>
+                @foreach($days as $day)
+                 <th>
+                    {{ $day->format('m/d')}}<br>
+                    {{ $day->isoFormat('dd')}}
+                 </th>
+                @endforeach
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($timeLists as $timeList)
+                <tr>
+                    <td>{{ $timeList }}</td>@foreach($days as $day)
+                    <td>
+                        <a href="#">〇</a>
+                    </td>
+                @endforeach    
+                </tr>
+            @endforeach
+
+        </tbody>
+    </table>
 </body>
 </html>
