@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class AppointmentController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $slots = CarbonPeriod::since('9:00')->minutes(30)->until('18:00');
+        $timeLists = [];
+        foreach($slots as $slot){
+            $timeLists[] = $slot->format('H:i');
+        }
+        
+        return view('appointments.index',['timeLists' => $timeLists]);
     }
 
     /**

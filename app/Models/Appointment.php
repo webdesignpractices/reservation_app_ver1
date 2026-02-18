@@ -34,4 +34,5 @@ class Appointment extends Model
         'start_at' => 'datetime',
         'end_at' => 'datetime',
         ];
+
 }
