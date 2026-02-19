@@ -5,6 +5,12 @@
     <title>Document</title>
 </head>
 <body>
+
+<div class="navigation">
+        <a href="?date={{ $prevWeek }}">◀ 前の週</a>
+        <span>{{ $days[0]->format('Y年m月') }}</span>
+        <a href="?date={{ $nextWeek }}">次の週 ▶</a>
+</div>
     <table>
         <thead>
             <tr>

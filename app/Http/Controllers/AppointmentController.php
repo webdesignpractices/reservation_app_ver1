@@ -14,11 +14,14 @@ class AppointmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+        $baseDate = Carbon::parse($request->query('date',today()));
+        $startDate = $baseDate->copy()->startOfWeek(Carbon::MONDAY);
+        
         $days = [];
         for($i = 0; $i < 7; $i++){
-            $days[] = today()->addDays($i);
+            $days[] = $startDate->copy()->addDays($i);
         }
         $slots = CarbonPeriod::since('9:00')->minutes(30)->until('18:00');
         $timeLists = [];
@@ -26,7 +29,14 @@ class AppointmentController extends Controller
             $timeLists[] = $slot->format('H:i');
         }
         
-        return view('appointments.index',['timeLists' => $timeLists,'days' => $days]);
+        $prevWeek = $startDate->copy()->subWeek()->format('m/d');
+        $nextvWeek = $startDate->copy()->addWeek()->format('m/d');
+
+        return view('appointments.index',['timeLists' => $timeLists,
+                'days' => $days,
+                'prevWeek' => $prevWeek,
+                'nextWeek' => $nextvWeek
+                ]);
     }
 
     /**
