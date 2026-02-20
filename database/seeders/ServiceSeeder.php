@@ -24,7 +24,7 @@ class ServiceSeeder extends Seeder
             'price' => 8000,
         ]);
         Service::create([
-            'name' => 'カラー(ブリーチなあり)',
+            'name' => 'カラー(ブリーチあり)',
             'duration_minutes' => 120,
             'price' => 13000,
         ]);
