@@ -29,8 +29,8 @@ class AppointmentController extends Controller
             $timeLists[] = $slot->format('H:i');
         }
         
-        $prevWeek = $startDate->copy()->subWeek()->format('m/d');
-        $nextvWeek = $startDate->copy()->addWeek()->format('m/d');
+        $prevWeek = $startDate->copy()->subWeek()->format('Y-m-d');
+        $nextWeek = $startDate->copy()->addWeek()->format('Y-m-d');
 
         return view('appointments.index',['timeLists' => $timeLists,
                 'days' => $days,
