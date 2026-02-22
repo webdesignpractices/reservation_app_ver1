@@ -6,7 +6,8 @@
     <title>Services</title>
 </head>
 <body>
-    <div class="main">        
+    <div class="container">
+    <div class="main">      
     @foreach($services as $service)
     <div  class="menu-container">
         
@@ -24,7 +25,7 @@
         <a href="{{route('appointments.index',$service)}}">予約画面へ</a>
     </div>
     @endforeach
-
+    </div>  
 </div>
 </body>
 </html>
