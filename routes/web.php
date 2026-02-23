@@ -10,5 +10,6 @@ use App\Http\Controllers\StaffController;
 Route::get('/menu/services',[ServiceController::class,'index'])->name('menu.services.index');
 //スタッフの指名画面
 Route::get('/menu/services/{service}',[StaffController::class,'index'])->name('menu.staff.index');
+//予約日時選択画面
 Route::get('/customer/appoint/{service}/{staff}', [AppointmentController::class,'index'])->name('appointments.index');
 

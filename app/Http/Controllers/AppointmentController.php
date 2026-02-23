@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Staff;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
@@ -15,7 +16,7 @@ class AppointmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request,Service $service)
+    public function index(Request $request,Service $service,Staff $staff)
     {   
         $baseDate = Carbon::parse($request->query('date',today()));
         $startDate = $baseDate->copy()->startOfWeek(Carbon::MONDAY);
@@ -38,13 +39,14 @@ class AppointmentController extends Controller
                 'prevWeek' => $prevWeek,
                 'nextWeek' => $nextWeek,
                 'service' => $service,
+                'staff' => $staff
                 ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Service $service,Staff $staff)
     {
         //
     }

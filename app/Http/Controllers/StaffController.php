@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Staff;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -10,10 +11,10 @@ class StaffController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Service $service)
     {
         $staff_s = Staff::all();
-        return view('menu.staff',['staff_s' => $staff_s]);
+        return view('menu.staff',['staff_s' => $staff_s, 'service' => $service]);
     }
 
     /**

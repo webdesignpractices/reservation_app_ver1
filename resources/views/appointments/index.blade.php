@@ -10,16 +10,27 @@
     <div class="main">
         <h1>選ばれているメニュー↓</h1>
         <div class="menu-container">        
-        <div>
-            <span>メニュー</span>
-            <span>所要時間</span>
-            <span>料金</span>
-        </div> 
+            <div>
+                <span>メニュー</span>
+                <span>所要時間</span>
+                <span>料金</span>
+            </div> 
         
         <div>
             <span>{{$service->name}}</span>
             <span>{{$service->formatted_duration}}</span>
             <span>{{$service->formatted_price}}</span>
+        </div>
+                <h1>選ばれているスタイリスト↓</h1>
+        <div class="menu-container">        
+            <div>
+                <span>スタイリスト</span>
+                <span>コメント</span>
+            </div> 
+        
+        <div>
+            <span>{{$staff->name}}</span>
+            <span>{{$staff->description}}</span>
         </div>
     </div>
     

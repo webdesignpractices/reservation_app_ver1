@@ -7,7 +7,21 @@
 </head>
 <body>
     <div class="container">
-    <div class="main">      
+    <div class="main">
+        <h1>選ばれているメニュー↓</h1>
+        <div class="menu-container">        
+            <div>
+                <span>メニュー</span>
+                <span>所要時間</span>
+                <span>料金</span>
+            </div> 
+        
+        <div>
+            <span>{{$service->name}}</span>
+            <span>{{$service->formatted_duration}}</span>
+            <span>{{$service->formatted_price}}</span>
+        </div>
+         
     @foreach($staff_s as $staff)
     <div  class="menu-container">
         
@@ -20,7 +34,7 @@
             <span>{{$staff->name}}</span>
             <span>{{$staff->description}}</span>
         </div>
-        <a href="{{route('appointments.index',$staff)}}">予約日時選択画面へ</a>
+        <a href="{{route('appointments.index',[$service,$staff])}}">このスタイリストで予約する</a>
     </div>
     @endforeach
     </div>  
