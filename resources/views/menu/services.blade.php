@@ -22,7 +22,7 @@
             <span>{{$service->formatted_duration}}</span>
             <span>{{$service->formatted_price}}</span>
         </div>
-        <a href="{{route('appointments.index',$service)}}">予約画面へ</a>
+        <a href="{{route('menu.staff.index',$service)}}">スタッフ選択画面へ</a>
     </div>
     @endforeach
     </div>  

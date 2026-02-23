@@ -12,7 +12,8 @@ class StaffController extends Controller
      */
     public function index()
     {
-        //
+        $staff_s = Staff::all();
+        return view('menu.staff',['staff_s' => $staff_s]);
     }
 
     /**

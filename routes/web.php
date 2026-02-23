@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Appointment;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StaffController;
 
 //メニュー(service)画面表示
-Route::get('/services',[ServiceController::class,'index'])->name('services.index');
-Route::get('/customer/appoint/{service}', [AppointmentController::class,'index'])->name('appointments.index');
-//create,read,update,destroy
+Route::get('/menu/services',[ServiceController::class,'index'])->name('menu.services.index');
+//スタッフの指名画面
+Route::get('/menu/services/{service}',[StaffController::class,'index'])->name('menu.staff.index');
+Route::get('/customer/appoint/{service}/{staff}', [AppointmentController::class,'index'])->name('appointments.index');
+

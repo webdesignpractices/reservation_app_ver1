@@ -15,7 +15,7 @@ class ServiceController extends Controller
     {
         $services = Service::all();
 
-        return view('services',['services' => $services]);
+        return view('menu.services',['services' => $services]);
     }
 
     /**
