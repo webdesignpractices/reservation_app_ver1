@@ -43,11 +43,12 @@
         <tbody>
             @foreach($timeLists as $timeList)
                 <tr>
-                    <td>{{ $timeList }}</td>@foreach($days as $day)
-                    <td>
-                        <a href="#">〇</a>
-                    </td>
-                @endforeach    
+                    <td>{{ $timeList }}</td>
+                        @foreach($days as $day)
+                            <td>
+                                <a href="#">〇</a>
+                            </td>
+                        @endforeach    
                 </tr>
             @endforeach
 
