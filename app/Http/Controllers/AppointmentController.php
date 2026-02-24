@@ -42,7 +42,18 @@ class AppointmentController extends Controller
                 'staff' => $staff
                 ]);
     }
+    public function confirm(Request $request,Service $service , Staff $staff){
+        $selectedDate = $request->query('date');
+        $selectedTime = $request->query('time');
 
+        return view('appointments.confirm',[
+            'service' => $service,
+            'staff' => $staff,
+            'date' => $selectedDate,
+            'time' => $selectedTime,
+        ]);
+
+    }
     /**
      * Show the form for creating a new resource.
      */

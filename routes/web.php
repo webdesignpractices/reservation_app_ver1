@@ -12,4 +12,6 @@ Route::get('/menu/services',[ServiceController::class,'index'])->name('menu.serv
 Route::get('/menu/services/{service}',[StaffController::class,'index'])->name('menu.staff.index');
 //予約日時選択画面
 Route::get('/customer/appoint/{service}/{staff}', [AppointmentController::class,'index'])->name('appointments.index');
+//日時選択実行から予約確認画面へ
+Route::get('/customer/appoint/{service}/{staff}/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
 
