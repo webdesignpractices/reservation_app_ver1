@@ -45,12 +45,13 @@ class AppointmentController extends Controller
     public function confirm(Request $request,Service $service , Staff $staff){
         $selectedDate = $request->query('date');
         $selectedTime = $request->query('time');
-
+        $selectedEndTime = $selectedTime->addMinutes($service->duration_minutes);
         return view('appointments.confirm',[
             'service' => $service,
             'staff' => $staff,
             'date' => $selectedDate,
             'time' => $selectedTime,
+            'selectedEndTime' => $selectedEndTime,
         ]);
 
     }

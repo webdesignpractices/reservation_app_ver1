@@ -30,7 +30,7 @@
         </div>
         <h1>予約時間</h1>
         <div>
-            <span>{{$date}}、{{$time}}</span>
+            <span>{{$date}}、{{$time}}～{{$selectedEndTime}}</span>
         </div>
     </div>
 </div>    

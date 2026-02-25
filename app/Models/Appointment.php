@@ -35,4 +35,9 @@ class Appointment extends Model
         'end_at' => 'datetime',
         ];
 
+
+        //確認画面で予約日時が9:00のみのところ、9:00~10:00までend_atも表示したい
+    // public function getEnd_AtAttribute(){
+    //     return $this->
+    // }
 }
