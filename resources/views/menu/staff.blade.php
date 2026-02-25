@@ -9,7 +9,6 @@
     <div class="container">
     <div class="main">
         <h1>選ばれているメニュー↓</h1>
-        <div class="menu-container">        
             <div>
                 <span>メニュー</span>
                 <span>所要時間</span>
