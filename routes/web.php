@@ -5,6 +5,7 @@ use App\Models\Appointment;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AuthController;
 
 //メニュー(service)画面表示
 Route::get('/menu/services',[ServiceController::class,'index'])->name('menu.services.index');
@@ -14,4 +15,7 @@ Route::get('/menu/services/{service}',[StaffController::class,'index'])->name('m
 Route::get('/customer/appoint/{service}/{staff}', [AppointmentController::class,'index'])->name('appointments.index');
 //日時選択実行から予約確認画面へ
 Route::get('/customer/appoint/{service}/{staff}/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
+//ユーザー登録画面へ
+Route::get('/signup', [AuthController::class,'getSignupForm'])->name('auth.signup');
+
 

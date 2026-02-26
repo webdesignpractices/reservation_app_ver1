@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    
+    public function getSignupForm(){
+        return view('auth.signup');
+    }
 }
