@@ -43,15 +43,18 @@ class AppointmentController extends Controller
                 ]);
     }
     public function confirm(Request $request,Service $service , Staff $staff){
-        $selectedDate = $request->query('date');
-        $selectedTime = $request->query('time');
-        $selectedEndTime = $selectedTime->addMinutes($service->duration_minutes);
+        $selectedDate = $request->query('date');//"2026-02-25"
+        $selectedTime = $request->query('time');//"11:00"
+
+        $startTime = Carbon::parse($selectedDate.''.$selectedTime);
+        $endTime = $startTime->copy()->addMinutes($service->duration_minutes);
+
         return view('appointments.confirm',[
             'service' => $service,
             'staff' => $staff,
             'date' => $selectedDate,
-            'time' => $selectedTime,
-            'selectedEndTime' => $selectedEndTime,
+            'startTime' => $startTime->format('H:i'),
+            'endTime' => $endTime->format('H:i'),
         ]);
 
     }
