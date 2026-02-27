@@ -8,7 +8,7 @@
 <body>
     <div class="container">
     <div class="main"> 
-        <form action="{{route('auth.signup')}}" method="post">  
+        <form action="{{route('user.store')}}" method="post">  
             @csrf   
             <h1>新規登録</h1>
             <div>
