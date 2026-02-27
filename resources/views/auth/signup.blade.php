@@ -11,9 +11,23 @@
         <form action="{{route('auth.signup')}}" method="post">  
             @csrf   
             <h1>新規登録</h1>
-            <input type="text" name="name">
-            <input type="text" name="email">
-            <input type="password" name="password">
+            <div>
+                <label>お名前</label>
+                <input type="text" name="name">
+            </div>
+            <div>
+                <label>メールアドレス</label>
+                <input type="email" name="email">
+            </div>   
+            <div>
+                <label>パスワード</label>
+                <input type="password" name="password">
+            </div>            
+            <div>
+                <label>パスワード(確認用)</label>
+                <input type="password" name="password_confirmation">
+            </div>        
+            <button type="submit">登録する</button>
         </form>
     </div>  
 </div>

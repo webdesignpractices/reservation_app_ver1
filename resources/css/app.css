@@ -18,3 +18,15 @@
     border :1px solid #ccc;
     margin-bottom :30px;
 }
+form div {
+    display :flex;
+    flex-direction :column;
+    margin-bottom :15px;
+}
+input {
+    border :1px solid black;
+    padding: 5px;
+}
+button {
+    cursor: pointer;
+}
