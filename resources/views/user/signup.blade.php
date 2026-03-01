@@ -13,14 +13,14 @@
             <h1>新規登録</h1>
             <div>
                 <label>お名前</label>
-                <input type="text" name="name">
+                <input type="text" name="name" value="{{old('name')}}">
             </div>
             @error('name')
              <p class="error">{{$message}}</p>
             @enderror 
             <div>
                 <label>メールアドレス</label>
-                <input type="email" name="email">
+                <input type="email" name="email" value="{{old('email')}}">
             </div> 
             @error('email')
              <p class="error">{{$message}}</p>

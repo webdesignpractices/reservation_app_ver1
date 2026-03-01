@@ -20,4 +20,5 @@ Route::get('/customer/appoint/{service}/{staff}/confirm', [AppointmentController
 Route::get('/signup/create', [UserController::class,'create'])->name('user.signup');
 //一般ユーザー登録
 Route::post('/signup/store', [UserController::class,'store'])->name('user.store');
-
+//既存ユーザーログイン画面へ
+Route::get('/login', [AuthController::class,'index'])->name('user.login.index');
