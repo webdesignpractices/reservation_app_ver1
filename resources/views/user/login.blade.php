@@ -8,12 +8,12 @@
 <body>
     <div class="container">
     <div class="main"> 
-        <form action="#" method="post">  
+        <form action="{{route('user.login.act')}}" method="post">  
             @csrf   
             <h1>ログイン</h1>
             <div>
                 <label>メールアドレス</label>
-                <input type="email" name="email">
+                <input type="email" name="email" value="{{old('email')}}">
             </div>   
             <div>
                 <label>パスワード</label>

@@ -22,3 +22,5 @@ Route::get('/signup/create', [UserController::class,'create'])->name('user.signu
 Route::post('/signup/store', [UserController::class,'store'])->name('user.store');
 //既存ユーザーログイン画面へ
 Route::get('/login', [AuthController::class,'index'])->name('user.login.index');
+//既存ユーザーログイン実行
+Route::post('/login', [AuthController::class,'login'])->name('user.login.act');
