@@ -7,7 +7,11 @@
 </head>
 <body>
     <div class="container">
-    <div class="main">      
+    <div class="main">    
+    <form action="{{route('user.logout')}}" method="post">
+        @csrf
+        <button>ログアウト</button>
+    </form>     
     @foreach($services as $service)
     <div  class="menu-container">
         

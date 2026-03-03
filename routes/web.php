@@ -20,7 +20,9 @@ Route::get('/customer/appoint/{service}/{staff}/confirm', [AppointmentController
 Route::get('/signup/create', [UserController::class,'create'])->name('user.signup');
 //一般ユーザー登録
 Route::post('/signup/store', [UserController::class,'store'])->name('user.store');
-//既存ユーザーログイン画面へ
+//既存一般ユーザーログイン画面へ
 Route::get('/login', [AuthController::class,'index'])->name('user.login.index');
-//既存ユーザーログイン実行
+//既存一般ユーザーログイン実行
 Route::post('/login', [AuthController::class,'login'])->name('user.login.act');
+//既存一般ユーザーログアウト実行
+Route::post('/logout', [AuthController::class,'logout'])->name('user.logout');
