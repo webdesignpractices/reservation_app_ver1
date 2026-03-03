@@ -21,6 +21,8 @@ class AuthController extends Controller
                 $request->session()->regenerate();
                 return redirect()->route('menu.services.index');
             }
-            return redirect()->route('user.login.index');
+            return back()
+            ->withErrors(['login_error' => 'メールアドレスかパスワードが違います'])
+            ->withInput();
     }
 }

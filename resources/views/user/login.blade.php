@@ -11,6 +11,9 @@
         <form action="{{route('user.login.act')}}" method="post">  
             @csrf   
             <h1>ログイン</h1>
+            @error('login_error')
+             <p class="error">{{$message}}</p>
+            @enderror 
             <div>
                 <label>メールアドレス</label>
                 <input type="email" name="email" value="{{old('email')}}">
