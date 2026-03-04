@@ -8,10 +8,19 @@
 <body>
     <div class="container">
     <div class="main">    
-    <form action="{{route('user.logout')}}" method="post">
-        @csrf
-        <button>ログアウト</button>
-    </form>     
+        <nav>
+            @auth
+            <form action="{{route('user.logout')}}" method="post">
+            @csrf
+            <button type="submit">ログアウト</button>
+            </form>
+            @endauth
+
+            @guest
+            <a href="{{route('user.login.index')}}">ログイン</a>
+            <a href="{{route('user.signup')}}">新規登録</a>
+            @endguest
+        </nav>         
     @foreach($services as $service)
     <div  class="menu-container">
         
