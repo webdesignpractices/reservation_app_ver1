@@ -58,12 +58,14 @@ class AppointmentController extends Controller
         ]);
 
     }
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    public function postServise(){
+        session([])
+    }
+
     public function create(Service $service,Staff $staff)
     {
-        //
+
     }
 
     /**

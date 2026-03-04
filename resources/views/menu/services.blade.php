@@ -21,9 +21,11 @@
             <a href="{{route('user.signup')}}">新規登録</a>
             @endguest
         </nav>         
+    <form action="{{route('')}}" method="post">
+        @csrf
     @foreach($services as $service)
     <div  class="menu-container">
-        
+        <input type="checkbox" name="service_ids[]" value="{{$service}}" id="service_{{$service}}">
         <div>
             <span>メニュー</span>
             <span>所要時間</span>
@@ -35,9 +37,11 @@
             <span>{{$service->formatted_duration}}</span>
             <span>{{$service->formatted_price}}</span>
         </div>
-        <a href="{{route('menu.staff.index',$service)}}">スタッフ選択画面へ</a>
     </div>
     @endforeach
+    </form>
+        <a href="{{route('menu.staff.index',$service)}}">スタイリスト選択へ</a>
+
     </div>  
 </div>
 </body>
