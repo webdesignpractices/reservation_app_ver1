@@ -25,7 +25,8 @@
         @csrf
     @foreach($services as $service)
     <div  class="menu-container">
-        <input type="checkbox" name="service_ids[]" value="{{$service}}" id="service_{{$service}}">
+        <input type="checkbox" name="service_ids[]" value="{{$service->id}}" id="service_{{$service}}"
+        {{in_array($service->id,old('service_ids',session('selected.service_ids', []))) ? 'checked' : ''}}>
         <label for="service_{{$service}}">
         <div>
             <span>メニュー</span>
@@ -38,6 +39,7 @@
         </label>
     </div>
     @endforeach
+    <button type="submit">保存して確認する</button>
     </form>
         <a href="{{route('menu.staff.index',$service)}}">スタイリスト選択へ</a>
 

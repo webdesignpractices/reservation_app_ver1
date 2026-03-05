@@ -60,8 +60,11 @@ class AppointmentController extends Controller
     }
 
     public function postServise(Request $request){
+        $selected = $request->service_ids;
+        session(['selected.service_ids' => $selected]);
+        //dd(session()->all());
+        return redirect()->back();
 
-        dd(session()->all());
     }
 
     public function create(Service $service,Staff $staff)
