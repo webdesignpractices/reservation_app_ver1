@@ -10,6 +10,8 @@ use App\Http\Controllers\AuthController;
 
 //メニュー(service)画面表示
 Route::get('/menu/services',[ServiceController::class,'index'])->name('menu.services.index');
+//メニュー選択のsession保存
+Route::post('/menu/services/post', [AppointmentController::class,'postServise'])->name('menu.services.session');
 //スタッフの指名画面
 Route::get('/menu/services/{service}',[StaffController::class,'index'])->name('menu.staff.index');
 //予約日時選択画面

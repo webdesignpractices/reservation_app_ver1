@@ -59,8 +59,9 @@ class AppointmentController extends Controller
 
     }
 
-    public function postServise(){
-        session([])
+    public function postServise(Request $request){
+
+        dd(session()->all());
     }
 
     public function create(Service $service,Staff $staff)

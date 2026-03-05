@@ -21,22 +21,21 @@
             <a href="{{route('user.signup')}}">新規登録</a>
             @endguest
         </nav>         
-    <form action="{{route('')}}" method="post">
+    <form action="{{route('menu.services.session')}}" method="post">
         @csrf
     @foreach($services as $service)
     <div  class="menu-container">
         <input type="checkbox" name="service_ids[]" value="{{$service}}" id="service_{{$service}}">
+        <label for="service_{{$service}}">
         <div>
             <span>メニュー</span>
-            <span>所要時間</span>
-            <span>料金</span>
-        </div> 
-        
-        <div>
             <span>{{$service->name}}</span>
+            <span>所要時間</span>
             <span>{{$service->formatted_duration}}</span>
+            <span>料金</span>
             <span>{{$service->formatted_price}}</span>
         </div>
+        </label>
     </div>
     @endforeach
     </form>
