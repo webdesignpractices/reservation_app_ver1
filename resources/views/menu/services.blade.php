@@ -25,9 +25,9 @@
         @csrf
     @foreach($services as $service)
     <div  class="menu-container">
-        <input type="checkbox" name="service_ids[]" value="{{$service->id}}" id="service_{{$service}}"
+        <input type="checkbox" name="service_ids[]" value="{{$service->id}}" id="service_{{$service->id}}"
         {{in_array($service->id,old('service_ids',session('selected.service_ids', []))) ? 'checked' : ''}}>
-        <label for="service_{{$service}}">
+        <label for="service_{{$service->id}}">
         <div>
             <span>メニュー</span>
             <span>{{$service->name}}</span>
