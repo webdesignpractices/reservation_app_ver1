@@ -67,6 +67,9 @@ class AppointmentController extends Controller
         return redirect()->back();
 
     }
+    public function postStaff(Request $request){
+        $validated = $request->validate(['reqired'])
+    }
 
     public function create(Service $service,Staff $staff)
     {

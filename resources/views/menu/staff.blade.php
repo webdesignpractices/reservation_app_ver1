@@ -20,22 +20,26 @@
             <span>{{$service->formatted_duration}}</span>
             <span>{{$service->formatted_price}}</span>
         </div>
-         
-    @foreach($staff_s as $staff)
-    <div  class="menu-container">
+    <form action="{{route('menu.staff.session')}}" method="post">
+        @csrf  
+        @foreach($staff_s as $staff)
+        <div  class="menu-container">
         
-        <div>
-            <span>スタイリスト名</span>
-            <span>コメント</span>
-        </div> 
-        
-        <div>
-            <span>{{$staff->name}}</span>
-            <span>{{$staff->description}}</span>
+            <div>
+                <span>スタイリスト名</span>
+                <span>コメント</span>
+            </div> 
+            
+            <div>
+                <span>{{$staff->name}}</span>
+                <span>{{$staff->description}}</span>
+            </div>
         </div>
-        <a href="{{route('appointments.index',[$service,$staff])}}">このスタイリストで予約する</a>
-    </div>
-    @endforeach
+        @endforeach
+        <button type="submit">このスタイリストで決定する</button>
+    </form>
+    <a href="{{route('appointments.index',[$service,$staff])}}">日時選択へ</a>
+
     </div>  
 </div>
 </body>
