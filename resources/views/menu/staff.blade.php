@@ -24,16 +24,14 @@
         @csrf  
         @foreach($staff_s as $staff)
         <div  class="menu-container">
-        
-            <div>
-                <span>スタイリスト名</span>
-                <span>コメント</span>
-            </div> 
-            
-            <div>
-                <span>{{$staff->name}}</span>
+            <input type="radio" name="staff_id" value="{{$staff->id}}" id="staff_{{$staff->id}}">
+            <label for="staff_{{$staff->id}}">
+                <span>スタイリスト名：</span>
+                <span>{{$staff->name}}</span><br>
+                <span>コメント：</span>
                 <span>{{$staff->description}}</span>
             </div>
+
         </div>
         @endforeach
         <button type="submit">このスタイリストで決定する</button>

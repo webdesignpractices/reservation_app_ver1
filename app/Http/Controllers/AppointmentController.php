@@ -68,7 +68,11 @@ class AppointmentController extends Controller
 
     }
     public function postStaff(Request $request){
-        $validated = $request->validate(['reqired'])
+        $validated = $request->validate(['staff_id' => 'required']);
+        session(['selected.staff_id' => $validated['staff_id']]);
+        dd(session('selected.staff_id'));
+        return redirect()->back();
+
     }
 
     public function create(Service $service,Staff $staff)

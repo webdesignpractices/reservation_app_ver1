@@ -15,7 +15,7 @@ Route::post('/menu/services/post', [AppointmentController::class,'postServise'])
 //スタッフの指名画面
 Route::get('/menu/services/{service}',[StaffController::class,'index'])->name('menu.staff.index');
 //スタッフの指名のsession保存
-Route::post('/menu/staff/post', [AppointmentController::class,'postServise'])->name('menu.staff.session');
+Route::post('/menu/staff/post', [AppointmentController::class,'postStaff'])->name('menu.staff.session');
 //予約日時選択画面
 Route::get('/customer/appoint/{service}/{staff}', [AppointmentController::class,'index'])->name('appointments.index');
 //日時選択実行から予約確認画面へ
