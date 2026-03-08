@@ -39,7 +39,7 @@
         </label>
     </div>
     @endforeach
-    <button type="submit">保存して確認する</button>
+    <button type="submit">メニューを決定する</button>
     </form>
         <a href="{{route('menu.staff.index',$service)}}">スタイリスト選択へ</a>
 

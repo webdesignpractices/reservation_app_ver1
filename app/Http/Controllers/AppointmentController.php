@@ -61,9 +61,9 @@ class AppointmentController extends Controller
 
     public function postServise(Request $request){
 
-        $validated = $request->validated(['service_ids' => 'required']);
+        $validated = $request->validate(['service_ids' => 'required']);
         session(['selected.service_ids' => $validated['service_ids']]);
-        
+
         return redirect()->back();
 
     }
