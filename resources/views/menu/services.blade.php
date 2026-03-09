@@ -41,7 +41,7 @@
     @endforeach
     <button type="submit">メニューを決定する</button>
     </form>
-        <a href="{{route('menu.staff.index',$service)}}">スタイリスト選択へ</a>
+    <!--<a href="{{route('menu.staff.index',$service)}}"></a>-->
 
     </div>  
 </div>

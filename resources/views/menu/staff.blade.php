@@ -34,9 +34,9 @@
 
         </div>
         @endforeach
-        <button type="submit">このスタイリストで決定する</button>
+        <button type="submit">日時選択へ</button>
     </form>
-    <a href="{{route('appointments.index',[$service,$staff])}}">日時選択へ</a>
+    <!--<a href="{{route('appointments.index')}}"></a>-->
 
     </div>  
 </div>

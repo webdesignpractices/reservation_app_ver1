@@ -58,7 +58,7 @@
                         @foreach($days as $day)
                             <td>
                                 <a href="{{route('appointments.confirm',
-                                [$service,$staff,
+                                [
                                 'date' => $day->format('Y-m-d'),
                                 'time' => $timeList])}}">〇</a>
                             </td>

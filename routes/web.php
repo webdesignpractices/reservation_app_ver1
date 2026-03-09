@@ -13,13 +13,13 @@ Route::get('/menu/services',[ServiceController::class,'index'])->name('menu.serv
 //メニュー選択のsession保存
 Route::post('/menu/services/post', [AppointmentController::class,'postServise'])->name('menu.services.session');
 //スタッフの指名画面
-Route::get('/menu/services/{service}',[StaffController::class,'index'])->name('menu.staff.index');
+Route::get('/menu/services/staff',[StaffController::class,'index'])->name('menu.staff.index');
 //スタッフの指名のsession保存
-Route::post('/menu/staff/post', [AppointmentController::class,'postStaff'])->name('menu.staff.session');
+Route::post('/menu/services/staff/post', [AppointmentController::class,'postStaff'])->name('menu.staff.session');
 //予約日時選択画面
-Route::get('/customer/appoint/{service}/{staff}', [AppointmentController::class,'index'])->name('appointments.index');
+Route::get('/customer/appoint/', [AppointmentController::class,'index'])->name('appointments.index');
 //日時選択実行から予約確認画面へ
-Route::get('/customer/appoint/{service}/{staff}/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
+//Route::get('/customer/appoint/{service}/{staff}/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
 //一般ユーザー登録画面へ
 Route::get('/signup/create', [UserController::class,'create'])->name('user.signup');
 //一般ユーザー登録
