@@ -38,7 +38,6 @@ class AppointmentController extends Controller
         $selectedServiceIds = session('selected.service_ids',[]);
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
 
-
         $selectedStaffId = session('selected.staff_id');
         $selectedStaff = Staff::findOrFail($selectedStaffId);
 
@@ -51,11 +50,17 @@ class AppointmentController extends Controller
                 ]);
     }
     public function confirm(Request $request){
+        $selectedServiceIds = session('selected.service_ids',[]);
+        $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
+
+        $selectedStaffId = session('selected.staff_id');
+        $selectedStaff = Staff::findOrFail($selectedStaffId);
+
         $selectedDate = $request->query('date');//"2026-02-25"
         $selectedTime = $request->query('time');//"11:00"
 
         $startTime = Carbon::parse($selectedDate.''.$selectedTime);
-        $endTime = $startTime->copy()->addMinutes($service->duration_minutes);
+        $endTime = $startTime->copy()->addMinutes($selectedServices->duration_minutes);
 
         return view('appointments.confirm',[
             'selectedServices' => $selectedServices,
