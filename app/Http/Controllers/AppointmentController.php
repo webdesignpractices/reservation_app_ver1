@@ -63,7 +63,7 @@ class AppointmentController extends Controller
 
         $validated = $request->validate(['service_ids' => 'required']);
         session(['selected.service_ids' => $validated['service_ids']]);
-
+        //dd(session('selected.service_ids'));
         return redirect()->route('menu.staff.index');
 
     }

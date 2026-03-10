@@ -6,21 +6,23 @@
     <title>Services</title>
 </head>
 <body>
-    <div class="container">
+<div class="container">
     <div class="main">
         <h1>選ばれているメニュー↓</h1>
+            @foreach($selectedServices as $service)
             <div>
                 <span>メニュー</span>
                 <span>所要時間</span>
                 <span>料金</span>
             </div> 
         
-        <div>
-            <span>{{$service->name}}</span>
-            <span>{{$service->formatted_duration}}</span>
-            <span>{{$service->formatted_price}}</span>
-        </div>
-    <form action="{{route('menu.staff.session')}}" method="post">
+            <div>
+                <span>{{$service->name}}</span>
+                <span>{{$service->formatted_duration}}</span>
+                <span>{{$service->formatted_price}}</span>
+            </div>
+            @endforeach
+        <form action="{{route('menu.staff.session')}}" method="post">
         @csrf  
         @foreach($staff_s as $staff)
         <div  class="menu-container">
@@ -35,8 +37,7 @@
         </div>
         @endforeach
         <button type="submit">日時選択へ</button>
-    </form>
-    <!--<a href="{{route('appointments.index')}}"></a>-->
+        </form>
 
     </div>  
 </div>

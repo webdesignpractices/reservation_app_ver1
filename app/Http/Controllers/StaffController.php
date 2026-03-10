@@ -11,10 +11,12 @@ class StaffController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Service $service)
+    public function index()
     {
+        $selectedServiceIds = session('selected.service_ids',[]);
+        $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
         $staff_s = Staff::all();
-        return view('menu.staff',['staff_s' => $staff_s, 'service' => $service]);
+        return view('menu.staff',['staff_s' => $staff_s, 'selectedServices' => $selectedServices]);
     }
 
     /**
