@@ -9,6 +9,7 @@
 <div class="container">
     <div class="main">
         <h1>選ばれているメニュー↓</h1>
+        @foreach($selectedServices as $service)
         <div class="menu-container">        
             <div>
                 <span>メニュー</span>
@@ -21,7 +22,9 @@
             <span>{{$service->formatted_duration}}</span>
             <span>{{$service->formatted_price}}</span>
         </div>
+        @endforeach
                 <h1>選ばれているスタイリスト↓</h1>
+
         <div class="menu-container">        
             <div>
                 <span>スタイリスト</span>
@@ -29,8 +32,8 @@
             </div> 
         
         <div>
-            <span>{{$staff->name}}</span>
-            <span>{{$staff->description}}</span>
+            <span>{{$selectedStaff->name}}</span>
+            <span>{{$selectedStaff->description}}</span>
         </div>
     </div>
     
@@ -57,10 +60,7 @@
                     <td>{{ $timeList }}</td>
                         @foreach($days as $day)
                             <td>
-                                <a href="{{route('appointments.confirm',
-                                [
-                                'date' => $day->format('Y-m-d'),
-                                'time' => $timeList])}}">〇</a>
+                                <a href="#">〇</a>
                             </td>
                         @endforeach    
                 </tr>

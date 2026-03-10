@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\StaffController;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\Service;
@@ -34,15 +35,22 @@ class AppointmentController extends Controller
         $prevWeek = $startDate->copy()->subWeek()->format('Y-m-d');
         $nextWeek = $startDate->copy()->addWeek()->format('Y-m-d');
 
+        $selectedServiceIds = session('selected.service_ids',[]);
+        $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
+
+
+        $selectedStaffId = session('selected.staff_id');
+        $selectedStaff = Staff::findOrFail($selectedStaffId);
+
         return view('appointments.index',['timeLists' => $timeLists,
                 'days' => $days,
                 'prevWeek' => $prevWeek,
                 'nextWeek' => $nextWeek,
-                'service' => $service,
-                'staff' => $staff
+                'selectedServices' => $selectedServices,
+                'selectedStaff' => $selectedStaff,
                 ]);
     }
-    public function confirm(Request $request,Service $service , Staff $staff){
+    public function confirm(Request $request){
         $selectedDate = $request->query('date');//"2026-02-25"
         $selectedTime = $request->query('time');//"11:00"
 
@@ -50,8 +58,8 @@ class AppointmentController extends Controller
         $endTime = $startTime->copy()->addMinutes($service->duration_minutes);
 
         return view('appointments.confirm',[
-            'service' => $service,
-            'staff' => $staff,
+            'selectedServices' => $selectedServices,
+            'selectedStaff' => $selectedStaff,
             'date' => $selectedDate,
             'startTime' => $startTime->format('H:i'),
             'endTime' => $endTime->format('H:i'),
