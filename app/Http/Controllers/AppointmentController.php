@@ -60,7 +60,8 @@ class AppointmentController extends Controller
         $selectedTime = $request->query('time');//"11:00"
 
         $startTime = Carbon::parse($selectedDate.''.$selectedTime);
-        $endTime = $startTime->copy()->addMinutes($selectedServices->duration_minutes);
+        $totalDuration = $selectedServices->sum('duration_minutes');
+        $endTime = $startTime->copy()->addMinutes($totalDuration);
 
         return view('appointments.confirm',[
             'selectedServices' => $selectedServices,
