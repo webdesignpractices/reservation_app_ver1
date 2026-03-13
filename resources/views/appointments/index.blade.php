@@ -60,8 +60,12 @@
                     <td>{{ $timeList }}</td>
                         @foreach($days as $day)
                             <td>
-                                <a href="{{route('appointments.confirm',
-                                ['date' => $day->format('Y-m-d'),'time' => $timeList])}}">〇</a>
+                                <form action="{{route('appointments.index.session')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="date" value="{{$day->format('Y-m-d')}}">
+                                    <input type="hidden" name="time" value="{{$timeList}}">
+                                    <button type="submit">〇</button>
+                                </form>
                             </td>
                         @endforeach    
                 </tr>
