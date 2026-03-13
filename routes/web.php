@@ -18,6 +18,10 @@ Route::get('/menu/services/staff',[StaffController::class,'index'])->name('menu.
 Route::post('/menu/services/staff/post', [AppointmentController::class,'postStaff'])->name('menu.staff.session');
 //予約日時選択画面
 Route::get('/customer/appoint/', [AppointmentController::class,'index'])->name('appointments.index');
+//予約日時選択をsession保存
+Route::post('/customer/appoint/post', [AppointmentController::class,'postDateTime'])->name('appointments.index.session');
+
+
 //日時選択実行から予約確認画面へ
 Route::get('/customer/appoint/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
 //一般ユーザー登録画面へ
