@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\StaffController;
+use Illuminate\Support\Facades\Session;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Staff;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+
 
 class AppointmentController extends Controller
 {
@@ -86,6 +88,15 @@ class AppointmentController extends Controller
         session(['selected.staff_id' => $validated['staff_id']]);
         //dd(session('selected.staff_id'));
         return redirect()->route('appointments.index');
+
+    }
+
+    public function postDateTime(Request $request){
+        $validated = $request->validate(['date' => 'required',
+        'time' => 'required']);
+        session(['selected.date_time' => $validated]);
+        //dd(session('selected.date_time'));
+        return redirect()->route('appointments.confirm');
 
     }
 
