@@ -26,8 +26,7 @@
             <div>
                 <span>スタイリスト</span>
             </div> 
-        
-
+    
             <span>{{$selectedStaff->name}}</span>
         </div>
         <h1>予約時間</h1>

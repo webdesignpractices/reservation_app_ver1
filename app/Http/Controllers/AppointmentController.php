@@ -58,8 +58,8 @@ class AppointmentController extends Controller
         $selectedStaffId = session('selected.staff_id');
         $selectedStaff = Staff::findOrFail($selectedStaffId);
 
-        $selectedDate = $request->query('date');//"2026-02-25"
-        $selectedTime = $request->query('time');//"11:00"
+        $selectedDate = session('selected.date_time.date');//"2026-02-25"
+        $selectedTime = session('selected.date_time.time');//"11:00"
 
         $startTime = Carbon::parse($selectedDate.''.$selectedTime);
         $totalDuration = $selectedServices->sum('duration_minutes');
