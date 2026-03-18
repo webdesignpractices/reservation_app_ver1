@@ -11,29 +11,20 @@
         <h1>選ばれているメニュー↓</h1>
         @foreach($selectedServices as $service)
         <div class="menu-container">        
-            <div>
-                <span>メニュー</span>
-                <span>所要時間</span>
-                <span>料金</span>
-            </div> 
-        
+
         <div>
-            <span>{{$service->name}}</span>
-            <span>{{$service->formatted_duration}}</span>
-            <span>{{$service->formatted_price}}</span>
+            <span>メニュー：{{$service->name}}</span><br>
+            <span>所要時間：{{$service->formatted_duration}}</span><br>
+            <span>料金：{{$service->formatted_price}}</span>
         </div>
         @endforeach
                 <h1>選ばれているスタイリスト↓</h1>
 
         <div class="menu-container">        
-            <div>
-                <span>スタイリスト</span>
-                <span>コメント</span>
-            </div> 
         
         <div>
             <span>{{$selectedStaff->name}}</span>
-            <span>{{$selectedStaff->description}}</span>
+            <span>コメント：{{$selectedStaff->description}}</span>
         </div>
     </div>
     
