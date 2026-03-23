@@ -32,8 +32,9 @@
         </div>
         @endforeach
         <button type="submit">日時選択へ</button>
+        <button type="submit">戻る</button>
         </form>
-
+        
     </div>  
 </div>
 </body>
