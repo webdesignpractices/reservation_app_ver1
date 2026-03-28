@@ -59,6 +59,7 @@ class AppointmentController extends Controller
         $selectedStaff = Staff::findOrFail($selectedStaffId);
 
         $selectedDate = session('selected.date_time.date');//"2026-02-25"
+        $date = Carbon::parse($selectedDate);
         $selectedTime = session('selected.date_time.time');//"11:00"
 
         $startTime = Carbon::parse($selectedDate.''.$selectedTime);
@@ -68,7 +69,7 @@ class AppointmentController extends Controller
         return view('appointments.confirm',[
             'selectedServices' => $selectedServices,
             'selectedStaff' => $selectedStaff,
-            'date' => $selectedDate,
+            'date' => $date,
             'startTime' => $startTime->format('H:i'),
             'endTime' => $endTime->format('H:i'),
         ]);
