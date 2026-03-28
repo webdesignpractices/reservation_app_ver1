@@ -21,7 +21,8 @@
         @csrf  
         @foreach($staff_s as $staff)
         <div  class="menu-container">
-            <input type="radio" name="staff_id" value="{{$staff->id}}" id="staff_{{$staff->id}}">
+            <input type="radio" name="staff_id" value="{{$staff->id}}" id="staff_{{$staff->id}}" 
+             {{session('selected.staff_id') == $staff->id ? 'checked' :''}}>
             <label for="staff_{{$staff->id}}">
                 <span>スタイリスト名：</span>
                 <span>{{$staff->name}}</span><br>
@@ -31,8 +32,8 @@
 
         </div>
         @endforeach
-        <button type="submit">日時選択へ</button>
-        <button type="submit">戻る</button>
+        <button type="submit" name="direction" value="next">日時選択へ</button>
+        <button type="submit" name="direction" value="back">戻る</button>
         </form>
         
     </div>  
