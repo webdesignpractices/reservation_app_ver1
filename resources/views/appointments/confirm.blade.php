@@ -23,8 +23,12 @@
         </div>
         <h1>予約時間</h1>
         <div>
-            <span>{{$date->isoFormat('YYYY年MM月DD日')}}、{{$startTime}}～{{$endTime}}</span>
+            <span>{{$date->isoFormat('YYYY年MM月DD日')}}　{{$startTime}}～{{$endTime}}（終了予定）</span>
         </div>
+        <form action="#" method="post">
+            @csrf
+            <button type="submit">予約を確定させる</button>
+        </form>
     </div>
 </div>    
 </body>
