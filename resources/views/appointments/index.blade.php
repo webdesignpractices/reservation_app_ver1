@@ -55,7 +55,10 @@
                                     @csrf
                                     <input type="hidden" name="date" value="{{$day->format('Y-m-d')}}">
                                     <input type="hidden" name="time" value="{{$timeList}}">
+                                    <div class="tooltip-container">
                                     <button type="submit">〇</button>
+                                    <span class="tooltip-text">{{$day->isoFormat('YYYY年MM月DD日')}}<br>開始:{{$timeList}}</span>
+                                    </div>
                                 </form>
                             </td>
                         @endforeach    
