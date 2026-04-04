@@ -13,3 +13,18 @@
 よって多対多であることを証明できた。
 
 次回に向けて→リレーション設定を行う。
+
+2026/4/4(土)　sessionについて
+// 文字列
+session(['name' => 'Taro']);
+// 数値
+session(['count' => 1]);
+// 配列
+session(['items' => ['apple', 'banana']]);
+// オブジェクト
+session(['user' => $userModel]);
+☆Q.session('selected.date_time' )は何が入っているのか？
+　A.
+　　$validated = $request->validate(['date' => 'required','time' => 'required']);
+　　session(['selected.date_time' => $validated]);
+　　なので["date" => "2026-04-04","time" => "15:00"]が入っている。
