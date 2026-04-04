@@ -3,9 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Service;
 
 class Service extends Model
 {
+    //$service->appointments
+    public function appointments(){
+        return $this->belongsToMany(Service::class);
+
+    }
     protected $fillable = [
         'name',
         'duration_minutes',

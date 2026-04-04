@@ -22,9 +22,9 @@ class Appointment extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-    //$appointment->service
-    public function service(){
-        return $this->belongsTo(Service::class);
+    //$appointment->services
+    public function services(){
+        return $this->belongsToMany(Service::class);
     }
     //$appointment->staff
     public function staff(){
