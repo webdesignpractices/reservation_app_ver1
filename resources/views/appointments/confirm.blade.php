@@ -25,7 +25,7 @@
         <div>
             <span>{{$date->isoFormat('YYYY年MM月DD日')}}　{{$startTime}}～{{$endTime}}（終了予定）</span>
         </div>
-        <form action="#" method="post">
+        <form action="appointments.store" method="post">
             @csrf
             <button type="submit">予約を確定させる</button>
         </form>

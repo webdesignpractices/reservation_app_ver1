@@ -115,7 +115,26 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $serviceIds = session('selected.service_ids');
+        $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
+
+        $staffid = session('selected.staff_id');
+        $dateTime = session('selected.date_time');//中身["date" => "2026-04-04","time" => "15:00"]
+
+        $startTime = Carbon::parse($dateTime['date'].''.$dateTime['time']);
+        $totalDuration = $selectedServices->sum('duration_minutes');
+        $endTime = $startTime->copy()->addMinutes($totalDuration);
+
+        Appointment::create([
+                'user_id'    => auth()->id(),    // ログイン中のユーザーID
+                'staff_id'   => $staff_id,      // 選んだスタッフID
+                'start_at'   => $startTime,     // 予約開始
+                'end_at'     => $endTime,       // 予約終了
+                'status'     => 'confirmed',    // デフォルト値があるけど明示してもOK
+            ]);
+
+            session->forget('selected');
+            return redirect()->route('menu.services.index');
     }
 
     /**
