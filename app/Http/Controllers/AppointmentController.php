@@ -132,7 +132,7 @@ class AppointmentController extends Controller
                 'end_at'     => $endTime,       // 予約終了
                 'status'     => 'confirmed',    // デフォルト値があるけど明示してもOK
             ]);
-            $appointment->services()->attach($serviceIds);
+            $appointment->services()->attach($selectedServices);
             session()->forget('selected');
             return redirect()->route('menu.services.index');
     }
