@@ -115,7 +115,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $serviceIds = session('selected.service_ids');
+        $selectedServiceIds = session('selected.service_ids');
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
 
         $staffid = session('selected.staff_id');
@@ -125,15 +125,15 @@ class AppointmentController extends Controller
         $totalDuration = $selectedServices->sum('duration_minutes');
         $endTime = $startTime->copy()->addMinutes($totalDuration);
 
-        Appointment::create([
+        $appointment = Appointment::create([
                 'user_id'    => auth()->id(),    // ログイン中のユーザーID
-                'staff_id'   => $staff_id,      // 選んだスタッフID
+                'staff_id'   => $staffid,      // 選んだスタッフID
                 'start_at'   => $startTime,     // 予約開始
                 'end_at'     => $endTime,       // 予約終了
                 'status'     => 'confirmed',    // デフォルト値があるけど明示してもOK
             ]);
-
-            session->forget('selected');
+            $appointment->services()->attach($serviceIds);
+            session()->forget('selected');
             return redirect()->route('menu.services.index');
     }
 
