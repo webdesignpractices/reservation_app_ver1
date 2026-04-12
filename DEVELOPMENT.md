@@ -28,3 +28,7 @@ session(['user' => $userModel]);
 　　$validated = $request->validate(['date' => 'required','time' => 'required']);
 　　session(['selected.date_time' => $validated]);
 　　なので["date" => "2026-04-04","time" => "15:00"]が入っている。
+
+2026/4/12(土)　予約完了ができた
+ユーザーログイン→メニュー選択→スタッフ選択→日時選択→予約確認→予約確定
+DBにてappointmentsテーブルにて予約確定を確認。
