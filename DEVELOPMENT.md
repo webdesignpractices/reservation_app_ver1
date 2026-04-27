@@ -32,3 +32,21 @@ session(['user' => $userModel]);
 2026/4/12(土)　予約完了ができた
 ユーザーログイン→メニュー選択→スタッフ選択→日時選択→予約確認→予約確定
 DBにてappointmentsテーブルにて予約確定を確認。
+
+2026/4/27(月)
+バリデーションは下だけなのになぜemailが空の時、確認用と違うときのエラー文が自動で切り替わるのか
+Answer:　'confirmed'が_confirmation今回はname="password_confirmation"
+に対してconfirmedのエラー文を$messageに格納するしくみ
+ 'password' => ['required', 'string', 'min:8', 'confirmed'],
+<div>
+<label>パスワード</label>
+<input type="password" name="password">
+</div>
+@error('password')
+<p class="error">{{$message}}</p>
+@enderror
+
+<div>
+<label>パスワード(確認用)</label>
+<input type="password" name="password_confirmation">
+</div>
