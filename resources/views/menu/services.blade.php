@@ -23,7 +23,11 @@
         </nav>         
     <form action="{{route('menu.services.session')}}" method="post">
         @csrf
+        @error('service_ids')
+        <p>{{$message}}</p>
+        @enderror
     @foreach($services as $service)
+
     <div  class="menu-container">
         <input type="checkbox" name="service_ids[]" value="{{$service->id}}" id="service_{{$service->id}}"
         {{in_array($service->id,old('service_ids',session('selected.service_ids', []))) ? 'checked' : ''}}>
