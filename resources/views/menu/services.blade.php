@@ -14,6 +14,7 @@
             @csrf
             <button type="submit">ログアウト</button>
             </form>
+            <a href="#">マイページ<a>
             @endauth
 
             @guest

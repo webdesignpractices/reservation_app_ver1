@@ -25,7 +25,7 @@
             @error('email')
              <p class="error">{{$message}}</p>
             @enderror 
-            <div>              
+                         
             <div>
                 <label>パスワード</label>
                 <input type="password" name="password">
@@ -33,7 +33,7 @@
             @error('password')
              <p class="error">{{$message}}</p>
             @enderror 
-            <div>                     
+                                
             <div>
                 <label>パスワード(確認用)</label>
                 <input type="password" name="password_confirmation">
