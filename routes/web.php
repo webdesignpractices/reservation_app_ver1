@@ -37,3 +37,6 @@ Route::get('/login', [AuthController::class,'index'])->name('user.login.index');
 Route::post('/login', [AuthController::class,'login'])->name('user.login.act');
 //既存一般ユーザーログアウト実行
 Route::post('/logout', [AuthController::class,'logout'])->name('user.logout');
+
+//既存ユーザーマイページ画面
+Route::get('/mypage', [AuthController::class,'mypage'])->name('user.mypage');

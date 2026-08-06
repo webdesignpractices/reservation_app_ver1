@@ -14,7 +14,7 @@
             @csrf
             <button type="submit">ログアウト</button>
             </form>
-            <a href="#">マイページ<a>
+            <a href="{{route('user.mypage')}}">マイページ<a>
             @endauth
 
             @guest

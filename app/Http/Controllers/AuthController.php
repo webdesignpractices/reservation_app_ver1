@@ -35,4 +35,8 @@ class AuthController extends Controller
 
         return redirect()->route('menu.services.index');
     }
+
+    public function mypage(){
+        return view('user.mypage');
+    }
 }
