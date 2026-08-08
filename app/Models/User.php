@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Appointment;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +23,11 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    //$user->appointments
+    public function appointments(){
+        return $this->belongsToMany(Appointment::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
