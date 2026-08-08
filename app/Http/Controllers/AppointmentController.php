@@ -8,6 +8,7 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Staff;
+use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
