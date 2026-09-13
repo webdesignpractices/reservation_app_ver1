@@ -11,7 +11,7 @@
         <ul>
             @forelse($user->appointments as $appointment)
             <li><li>
-                            <span>メニュー：{{}}</span><br>
+                            <span>メニュー：{{$service->name}}</span><br>
             <span>所要時間：{{$service->formatted_duration}}</span><br>
             <span>料金：{{$service->formatted_price}}</span>
         </div>
