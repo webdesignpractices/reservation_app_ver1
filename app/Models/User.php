@@ -26,7 +26,7 @@ class User extends Authenticatable
 
     //$user->appointments
     public function appointments(){
-        return $this->belongsToMany(Appointment::class);
+        return $this->hasMany(Appointment::class);
     }
 
     /**

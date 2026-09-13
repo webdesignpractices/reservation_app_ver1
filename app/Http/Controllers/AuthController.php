@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Tests\TestCase;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Appointment;
+use App\Models\User;
+use App\Models\Service;
+use App\Models\Staff;
+
 
 class AuthController extends Controller
 {
@@ -38,6 +42,10 @@ class AuthController extends Controller
     }
 
     public function mypage(){
-        return view('user.mypage');
+        $user = Auth::user();
+        $appointments = $user->appointments;
+        return view('user.mypage',['user'=>$user,'appointments'=>$appointments]);
     }
+
+
 }
