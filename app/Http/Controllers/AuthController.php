@@ -47,5 +47,13 @@ class AuthController extends Controller
         return view('user.mypage',['user'=>$user,'appointments'=>$appointments]);
     }
 
+    public function destroy(Request $request){
+        $user = Auth::user();
+        $appointment = $user->appointmens;
+        $appointment->delete;
+
+        return redirect()->route('user.mypage');
+    }
+
 
 }

@@ -23,8 +23,9 @@ Route::post('/customer/datetime/post', [AppointmentController::class,'postDateTi
 //日時選択実行から予約確認画面へ
 Route::get('/customer/appoint/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
 //予約確認画面から予約確定へ
-Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->name('appointments.store');
-
+Route::delete('/customer/appoint/post', [AppointmentController::class,'store'])->name('appointments.store');
+//ユーザーログイン状態での予約キャンセル実行
+Route::post('/customer/appoint/{appointment}/cancel',[AppointmentController::class,'destroy'])->name('appointments.cancel');
 
 
 //一般ユーザー登録画面へ

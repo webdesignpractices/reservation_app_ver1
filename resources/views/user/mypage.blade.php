@@ -31,7 +31,11 @@
                     </span>
                 </div>
                 <div>
+                    <form action="{{route('appointments.cancel', $appointment)}}" method="post">
+                        @csrf
+                        @method('DELETE')
                     <button type = "submit">この予約をキャンセルする</button>
+                </form>
                 </div>
             </li>
              @empty

@@ -11,6 +11,7 @@ use App\Models\Staff;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\Http\Controllers\Auth;
 
 
 
@@ -168,6 +169,10 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        //
+
+        $appointment->delete();
+
+        return redirect()->route('user.mypage');
     }
+    
 }
