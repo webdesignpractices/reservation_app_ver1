@@ -10,8 +10,8 @@
         <h1>↓予約一覧↓</h1>
         <ul>
             @forelse($user->appointments as $appointment)
-            <li>
-                <h2>メニュー</h2>
+            <li class = reserved>
+                
                 @foreach($appointment->services as $service)
                 <div>
                     <span>メニュー：{{$service->name}}</span><br>
@@ -20,15 +20,18 @@
                 </div>
                 @endforeach
 
-                <h2>選ばれているスタイリスト↓</h2>
+                
                 <div>   
-                    <span>{{$appointment->staff->name}}</span>
+                    <span>スタイリスト：{{$appointment->staff->name}}</span>
                 </div>
                 <h2>予約時間</h2>
                 <div>
                     <span>{{$appointment->start_at->isoFormat('YYYY年MM月DD日')}}
                         {{$appointment->start_at->format('H:i')}}～{{$appointment->end_at->format('H:i')}}（終了予定）
                     </span>
+                </div>
+                <div>
+                    <button type = "submit">この予約をキャンセルする</button>
                 </div>
             </li>
              @empty
