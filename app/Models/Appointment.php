@@ -28,7 +28,7 @@ class Appointment extends Model
     }
     //$appointment->staff
     public function staff(){
-        return $this->belongsTo(Staff::class);
+        return $this->belongsTo(Staff::class,'staff_id');
     }
     protected $casts = [
         'start_at' => 'datetime',

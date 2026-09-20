@@ -10,19 +10,32 @@
         <h1>↓予約一覧↓</h1>
         <ul>
             @forelse($user->appointments as $appointment)
-            <li><li>
-                            <span>メニュー：{{$appointment->services->name}}</span><br>
-            <span>所要時間：{{$service->formatted_duration}}</span><br>
-            <span>料金：{{$service->formatted_price}}</span>
-        </div>
+            <li>
+                <h2>メニュー</h2>
+                @foreach($appointment->services as $service)
+                <div>
+                    <span>メニュー：{{$service->name}}</span><br>
+                    <span>所要時間：{{$service->formatted_duration}}</span><br>
+                    <span>料金：{{$service->formatted_price}}</span>
+                </div>
+                @endforeach
 
-                <h1>選ばれているスタイリスト↓</h1>   
-            <span>{{$selectedStaff->name}}</span>
-        </div>
-        <h1>予約時間</h1>
-        <div>
-            <span>{{$appointment->start_at->isoFormat('YYYY年MM月DD日')}}　{{$startTime}}～{{$endTime}}（終了予定）</span>
-        </div>
+                <h2>選ばれているスタイリスト↓</h2>
+                <div>   
+                    <span>{{$appointment->staff->name}}</span>
+                </div>
+                <h2>予約時間</h2>
+                <div>
+                    <span>{{$appointment->start_at->isoFormat('YYYY年MM月DD日')}}
+                        {{$appointment->start_at->format('H:i')}}～{{$appointment->end_at->format('H:i')}}（終了予定）
+                    </span>
+                </div>
+            </li>
+             @empty
+             <li>
+             <p>予約がありません<p>
+            </li>   
+             @endforelse      
         </ul>
 
     </div>  
