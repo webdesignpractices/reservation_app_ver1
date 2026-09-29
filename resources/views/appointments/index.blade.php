@@ -37,12 +37,13 @@
         <thead>
             <tr>
                 <th>時間</th>
-                @foreach($days as $day)
+                @foreach($days as $day)   
                  <th>
-                    {{ $day->format('m/d')}}<br>
-                    {{ $day->isoFormat('dd')}}
+                        {{ $day->format('m/d')}}<br>
+                        {{ $day->isoFormat('dd')}}
                  </th>
                 @endforeach
+                
             </tr>
         </thead>
         <tbody>
@@ -50,7 +51,19 @@
                 <tr>
                     <td>{{ $timeList }}</td>
                         @foreach($days as $day)
-                            <td>
+                        <td>
+                            
+                            @php
+                            $slotStart = \Carbon\Carbon::parse($day->format('Y-m-d') .' '. $timeList);
+                            $slotEnd = $slotStart->copy()->addMinutes(30);
+                            @endphp
+
+                            @if($appointments->contains(fn($appointment) => 
+                            $slotStart->lt($appointment->end_at)&&
+                            $slotEnd->gt($appointment->start_at)
+                            ))
+                                <span>×</span>
+                            @else
                                 <form action="{{route('appointments.index.session')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="date" value="{{$day->format('Y-m-d')}}">
@@ -60,8 +73,9 @@
                                     <span class="tooltip-text">{{$day->isoFormat('YYYY年MM月DD日')}}<br>開始:{{$timeList}}</span>
                                     </div>
                                 </form>
-                            </td>
-                        @endforeach    
+                                @endif
+                        </td>
+                    @endforeach    
                 </tr>
             @endforeach
 
