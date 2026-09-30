@@ -49,7 +49,7 @@ class AuthController extends Controller
 
     public function backHome(Request $request){
         if($request->direction === 'back'){
-            return redirect()->route('home');
+            return view('home');
         }
     }
 

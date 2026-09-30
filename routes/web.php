@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
 //home画面へ遷移
-Route::get('/home',[AuthController::class,'backHome'])->name('home')
+Route::get('/home',[AuthController::class,'backHome'])->name('home');
 //メニュー(service)画面表示
 Route::get('/menu/services',[ServiceController::class,'index'])->name('menu.services.index');
 //メニュー選択のsession保存
