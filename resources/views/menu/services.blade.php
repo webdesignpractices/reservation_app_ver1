@@ -47,6 +47,7 @@
     <button type="submit">メニューを決定する</button>
     </form>
         <a href="{{route('home')}}" class="backHome">ホームへ戻る</a>
+        <a href="{{route('menu.staff.index')}}" class="nextStaff">スタイリストを見る</a>
     </div>  
 </div>
 </body>

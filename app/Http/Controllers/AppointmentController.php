@@ -87,9 +87,6 @@ class AppointmentController extends Controller
     }
 
     public function postServise(Request $request){
-        if($request->direction === 'back'){
-            return redirect()->route('home');
-        }
 
         $validated = $request->validate(['service_ids' => 'required']);
         session(['selected.service_ids' => $validated['service_ids']]);
