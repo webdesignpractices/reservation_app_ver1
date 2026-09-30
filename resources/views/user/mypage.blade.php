@@ -45,7 +45,7 @@
             </li>   
              @endforelse      
         </ul>
-        <button type="submit" name="direction" value="back">ホームへ</button>
+        <a href="{{route('home')}}" class="backHome">ホームへ</a>
     </div>  
 </div>
 </body>

@@ -48,10 +48,9 @@ class AuthController extends Controller
     }
 
     public function backHome(Request $request){
-        if($request->direction === 'back'){
             return view('home');
         }
-    }
+    
 
     public function destroy(Request $request){
 
