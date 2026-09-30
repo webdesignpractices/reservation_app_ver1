@@ -10,7 +10,7 @@
     <div class="main">
     <h1>Beauty Salon<h1>
 
-
+    <a href="{{route('menu.services.index')}}" class="nextService">メニュー選択へ</a>
 
     </div>  
 </div>

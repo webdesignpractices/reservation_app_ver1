@@ -45,7 +45,7 @@
     </div>
     @endforeach
     <button type="submit">メニューを決定する</button>
-</form>
+    </form>
         <a href="{{route('home')}}" class="backHome">ホームへ戻る</a>
     </div>  
 </div>
