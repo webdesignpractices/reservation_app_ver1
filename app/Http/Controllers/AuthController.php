@@ -47,10 +47,18 @@ class AuthController extends Controller
         return view('user.mypage',['user'=>$user,'appointments'=>$appointments]);
     }
 
+    public function backHome(Request $request){
+        if($request->direction === 'back'){
+            return redirect()->route('home');
+        }
+    }
+
     public function destroy(Request $request){
+
         $user = Auth::user();
         $appointment = $user->appointmens;
         $appointment->delete;
+
 
         return redirect()->route('user.mypage');
     }

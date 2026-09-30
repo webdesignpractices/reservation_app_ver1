@@ -35,6 +35,7 @@
                         @csrf
                         @method('DELETE')
                     <button type = "submit">この予約をキャンセルする</button>
+                    
                 </form>
                 </div>
             </li>
@@ -44,7 +45,7 @@
             </li>   
              @endforelse      
         </ul>
-
+        <button type="submit" name="direction" value="back">ホームへ</button>
     </div>  
 </div>
 </body>
