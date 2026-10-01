@@ -9,6 +9,7 @@
 <div class="container">
     <div class="main">
         <h1>選ばれているメニュー↓</h1>
+            @if(session('selected.service_ids'))
             @foreach($selectedServices as $service)
 
             <div>
@@ -17,6 +18,9 @@
                 <span>料金：{{$service->formatted_price}}</span>
             </div>
             @endforeach
+            @else
+            <p>メニューが未選択です</p>
+            @endif
         <form action="{{route('menu.staff.session')}}" method="post">
         @csrf  
         @foreach($staff_s as $staff)
