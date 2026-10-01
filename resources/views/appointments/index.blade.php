@@ -7,9 +7,10 @@
 </head>
 <body>
 <div class="container">
-    <div class="main">
+    <div class="main">        
         <h1>選ばれているメニュー↓</h1>
-        @foreach($selectedServices as $service)
+        @if(session('selected.service_ids'))
+            @foreach($selectedServices as $service)
         <div class="menu-container">        
 
         <div>
@@ -17,16 +18,23 @@
             <span>所要時間：{{$service->formatted_duration}}</span><br>
             <span>料金：{{$service->formatted_price}}</span>
         </div>
-        @endforeach
+            @endforeach
+        @else
+            <p>メニューが選ばれていません</p>
+        @endif
+        @if(session('selected.staff_id'))
                 <h1>選ばれているスタイリスト↓</h1>
 
-        <div class="menu-container">        
+        <div class="staff-container">        
         
-        <div>
-            <span>{{$selectedStaff->name ?? ' '}}</span>
-            <span>コメント：{{$selectedStaff->description ?? ' '}}</span>
+            <div>
+                <span>{{$selectedStaff->name}}</span>
+                <span>コメント：{{$selectedStaff->description}}</span>
+            </div>
+        @else
+        <p>スタイリストが未選択です</p>
+        @endif
         </div>
-    </div>
     
         <div class="navigation">
             <a href="?date={{ $prevWeek }}">◀ 前の週</a>
@@ -90,11 +98,11 @@
                 </tr>
             @endforeach
                
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
     
-</div>
+    </div>
     <a href="{{route('menu.staff.index')}}" class="backStaff">戻る</a>
      <a href="{{route('menu.services.index')}}" class="startReserve">メニュー選択画面へ</a>
 </div>    
