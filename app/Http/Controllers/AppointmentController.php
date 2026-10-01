@@ -44,7 +44,7 @@ class AppointmentController extends Controller
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
 
         $selectedStaffId = session('selected.staff_id');
-        $selectedStaff = Staff::findOrFail($selectedStaffId);
+        $selectedStaff = $selectedStaffId ? Staff::find($selectedStaffId) : null;
 
         $appointments = Appointment::where('staff_id',$selectedStaffId)
         ->whereBetween('start_at',[

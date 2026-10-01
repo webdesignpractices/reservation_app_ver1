@@ -23,8 +23,8 @@
         <div class="menu-container">        
         
         <div>
-            <span>{{$selectedStaff->name}}</span>
-            <span>コメント：{{$selectedStaff->description}}</span>
+            <span>{{$selectedStaff->name ?? ' '}}</span>
+            <span>コメント：{{$selectedStaff->description ?? ' '}}</span>
         </div>
     </div>
     
@@ -64,6 +64,7 @@
                             ))
                                 <span>×</span>
                             @else
+                                @if(session('selected.service_ids'))
                                 <form action="{{route('appointments.index.session')}}" method="post">
                                     @csrf
                                     <input type="hidden" name="date" value="{{$day->format('Y-m-d')}}">
@@ -73,16 +74,29 @@
                                     <span class="tooltip-text">{{$day->isoFormat('YYYY年MM月DD日')}}<br>開始:{{$timeList}}</span>
                                     </div>
                                 </form>
+                                
+                                @else
+                                <div class="tooltip-container">
+                                    <span class="available-mark">〇</span>
+                                    <span class="tooltip-text">{{ $day->isoFormat('YYYY年MM月DD日') }}<br>開始:{{ $timeList }}</span>
+                                    </div>
+                                    
                                 @endif
                         </td>
-                    @endforeach    
+                                
+                            @endif
+
+                        @endforeach    
                 </tr>
             @endforeach
-
+               
         </tbody>
-    </table>
 
-    </div>
+    </table>
+    
+</div>
+    <a href="{{route('menu.staff.index')}}" class="backStaff">戻る</a>
+     <a href="{{route('menu.services.index')}}" class="startReserve">メニュー選択画面へ</a>
 </div>    
 </body>
 </html>

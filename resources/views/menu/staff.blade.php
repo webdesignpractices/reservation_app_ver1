@@ -32,9 +32,10 @@
 
         </div>
         @endforeach
-        <button type="submit" name="direction" value="next">日時選択へ</button>       
+        <button type="submit">日時選択へ</button>       
         </form>
-        <a href="{{route('appointments.index')}}" class="nextDate">空き日時を見る</a>
+        <a href="{{route('menu.services.index')}}" class="backService">戻る</a>
+        <a href="{{route('appointments.index')}}" class="showDate">空き日時を見る</a>
     </div>  
 </div>
 </body>
