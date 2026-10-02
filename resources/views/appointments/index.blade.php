@@ -22,9 +22,9 @@
         @else
             <p>メニューが選ばれていません</p>
         @endif
+        
+        <h1>選ばれているスタイリスト↓</h1>
         @if(session('selected.staff_id'))
-                <h1>選ばれているスタイリスト↓</h1>
-
         <div class="staff-container">        
         
             <div>
@@ -101,10 +101,10 @@
             </tbody>
 
         </table>
-    
+        <a href="{{route('menu.staff.index')}}" class="backStaff">戻る</a>
+        <a href="{{route('menu.services.index')}}" class="startReserve">メニュー選択画面へ</a>
     </div>
-    <a href="{{route('menu.staff.index')}}" class="backStaff">戻る</a>
-     <a href="{{route('menu.services.index')}}" class="startReserve">メニュー選択画面へ</a>
+
 </div>    
 </body>
 </html>

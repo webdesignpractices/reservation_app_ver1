@@ -46,11 +46,19 @@ class AppointmentController extends Controller
         $selectedStaffId = session('selected.staff_id');
         $selectedStaff = $selectedStaffId ? Staff::find($selectedStaffId) : null;
 
-        $appointments = Appointment::where('staff_id',$selectedStaffId)
+        $appointments = Appointment::query()
+        ->when($selectedStaffId,fn($query,$staffId) => 
+            $query->where('staff_id',$staffId)
+        )
+
         ->whereBetween('start_at',[
             $startDate->copy()->startOfDay(),
-            $startDate->copy()->addDays(7)->endOfDay()
-        ])->get();
+            $startDate->copy()->addDays(7)->endOfDay(),
+        ])
+        ->get();
+        
+        
+
 
         return view('appointments.index',['timeLists' => $timeLists,
                 'days' => $days,
