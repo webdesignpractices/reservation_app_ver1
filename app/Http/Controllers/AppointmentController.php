@@ -83,14 +83,16 @@ class AppointmentController extends Controller
         $startTime = Carbon::parse($selectedDate.''.$selectedTime);
         $totalDuration = $selectedServices->sum('duration_minutes');
         $endTime = $startTime->copy()->addMinutes($totalDuration);
-
+        if(Auth::user()){
         return view('appointments.confirm',[
             'selectedServices' => $selectedServices,
             'selectedStaff' => $selectedStaff,
             'date' => $date,
             'startTime' => $startTime->format('H:i'),
             'endTime' => $endTime->format('H:i'),
-        ]);
+        ]);}else{
+            return redirect()->route('user.login.index');
+        }
 
     }
 
@@ -143,6 +145,7 @@ class AppointmentController extends Controller
         $totalDuration = $selectedServices->sum('duration_minutes');
         $endTime = $startTime->copy()->addMinutes($totalDuration);
 
+        
         $appointment = Appointment::create([
                 'user_id'    => auth()->id(),    // ログイン中のユーザーID
                 'staff_id'   => $staffid,      // 選んだスタッフID
@@ -153,6 +156,7 @@ class AppointmentController extends Controller
             $appointment->services()->attach($selectedServices);
             session()->forget('selected');
             return redirect()->route('menu.services.index');
+
     }
 
     /**
