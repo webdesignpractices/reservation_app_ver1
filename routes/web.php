@@ -22,10 +22,7 @@ Route::post('/menu/services/staff/post', [AppointmentController::class,'postStaf
 Route::get('/customer/appoint', [AppointmentController::class,'index'])->name('appointments.index');
 //予約日時選択をsession保存
 Route::post('/customer/datetime/post', [AppointmentController::class,'postDateTime'])->name('appointments.index.session');
-//日時選択実行から予約確認画面へ
-Route::get('/customer/appoint/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
-//予約確認画面から予約確定へ
-Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->name('appointments.store');
+
 //ユーザーログイン状態での予約キャンセル実行
 Route::delete('/customer/appoint/{appointment}/cancel',[AppointmentController::class,'destroy'])->name('appointments.cancel');
 
@@ -35,7 +32,7 @@ Route::get('/signup/create', [UserController::class,'create'])->name('user.signu
 //一般ユーザー登録
 Route::post('/signup/store', [UserController::class,'store'])->name('user.store');
 //既存一般ユーザーログイン画面へ
-Route::get('/login', [AuthController::class,'index'])->name('user.login.index');
+Route::get('/login', [AuthController::class,'index'])->name('login');
 //既存一般ユーザーログイン実行
 Route::post('/login', [AuthController::class,'login'])->name('user.login.act');
 //既存一般ユーザーログアウト実行
@@ -43,3 +40,10 @@ Route::post('/logout', [AuthController::class,'logout'])->name('user.logout');
 
 //既存ユーザーマイページ画面
 Route::get('/mypage', [AuthController::class,'mypage'])->name('user.mypage');
+
+Route::middleware('auth')->group(function (){
+    //日時選択実行から予約確認画面へ
+Route::get('/customer/appoint/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
+    //予約確認画面から予約確定へ
+Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->name('appointments.store');
+});

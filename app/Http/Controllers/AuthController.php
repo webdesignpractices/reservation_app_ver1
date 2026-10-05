@@ -25,7 +25,7 @@ class AuthController extends Controller
 
             if(Auth::attempt($credentials)){
                 $request->session()->regenerate();
-                return redirect()->route('menu.services.index');
+                return redirect()->intended(route('user.mypage'));
             }
             return back()
             ->withErrors(['login_error' => 'メールアドレスかパスワードが違います'])

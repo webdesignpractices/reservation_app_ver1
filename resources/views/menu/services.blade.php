@@ -18,7 +18,7 @@
             @endauth
 
             @guest
-            <a href="{{route('user.login.index')}}">ログイン</a>
+            <a href="{{route('login')}}">ログイン</a>
             <a href="{{route('user.signup')}}">新規登録</a>
             @endguest
         </nav>         
