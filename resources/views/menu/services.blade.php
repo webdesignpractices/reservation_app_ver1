@@ -8,20 +8,7 @@
 <body>
     <div class="container">
     <div class="main">    
-        <nav>
-            @auth
-            <form action="{{route('user.logout')}}" method="post">
-            @csrf
-            <button type="submit">ログアウト</button>
-            </form>
-            <a href="{{route('user.mypage')}}">マイページ<a>
-            @endauth
-
-            @guest
-            <a href="{{route('login')}}">ログイン</a>
-            <a href="{{route('user.signup')}}">新規登録</a>
-            @endguest
-        </nav>         
+        
     <form action="{{route('menu.services.session')}}" method="post">
         @csrf
         @error('service_ids')
