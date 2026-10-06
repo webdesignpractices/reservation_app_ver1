@@ -36,10 +36,13 @@
 
         </div>
         @endforeach
+        @if(session('selected.service_ids'))
         <button type="submit">スタイリストを決定して日時を選択する</button>       
         </form>
+        @else
         <a href="{{route('menu.services.index')}}" class="backService">戻る</a>
         <a href="{{route('appointments.index')}}" class="showDate">空き日時を見る</a>
+        @endif
     </div>  
 </div>
 </body>
