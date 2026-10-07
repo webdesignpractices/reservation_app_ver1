@@ -96,6 +96,13 @@ class AppointmentController extends Controller
 
     public function postServise(Request $request){
 
+    $menuIds = $request->input('service_ids', []);
+        if(empty($menuIds)){
+            return back()
+            ->withErrors(['service_error' => 'メニューを選択してください'])
+            ->withInput();
+        }
+        
         $validated = $request->validate(['service_ids' => 'required']);
         session(['selected.service_ids' => $validated['service_ids']]);
         //dd(session('selected.service_ids'));
