@@ -150,17 +150,43 @@ class AppointmentController extends Controller
         $totalDuration = $selectedServices->sum('duration_minutes');
         $endTime = $startTime->copy()->addMinutes($totalDuration);
 
-        
-        $appointment = Appointment::create([
+        try {
+            $apppointment = DB::transaction(function () use ($staffId, $startTime, $endTime, $selectedServices){
+                //同一スタッフの同じ時間帯に重複する予約がないか確認（排他確認）
+                $hasOrverlap = Appointment::where('staff_id',$staffId)
+                ->where('status', '!=', 'cancelled')//キャンセル済みを除外する場合
+                ->where(function ($query) use ($startTime,$endTime){
+                    //時間帯の重複条件:既存の予約の（開始＜今回の終了）AND　（終了＞今回の開始）
+                    $query->where('start_at','<' ,$endTime)
+                        ->where('end_at', '>' ,$startTime);
+                })
+                ->lockForUpdate()//☆ここポイント：他処理からの同時割り込みをブロックする
+                ->exists();
+            //重複がある場合はロールバックさせる
+            if ($hasOrverlap){
+                throw new \Exception('指定された時間帯はすでに他の予約が入っています')
+            }
+            //予約の作成
+            $newAppointment = Appointment::create([
                 'user_id'    => auth()->id(),    // ログイン中のユーザーID
                 'staff_id'   => $staffid,      // 選んだスタッフID
                 'start_at'   => $startTime,     // 予約開始
                 'end_at'     => $endTime,       // 予約終了
                 'status'     => 'confirmed',    // デフォルト値があるけど明示してもOK
             ]);
-            $appointment->services()->attach($selectedServices);
+
+            //中間テーブルの結合
+            $newAppointment->services()->attach($selectedServices);
+                return $newAppointment;
+            });
+
+            //成功した場合のセッションクリア
             session()->forget('selected');
             return redirect()->route('user.mypage');
+        } catch (\Exception $e) {
+            //重複があった場合、または処理中にエラーがあった場合
+            return redirect()->back()->with('error',$e->getMessege());
+        }
 
     }
 
