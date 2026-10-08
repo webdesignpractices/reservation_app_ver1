@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Session;
 use App\Models\Appointment;
@@ -146,12 +147,12 @@ class AppointmentController extends Controller
         $staffid = session('selected.staff_id');
         $dateTime = session('selected.date_time');//中身["date" => "2026-04-04","time" => "15:00"]
 
-        $startTime = Carbon::parse($dateTime['date'].''.$dateTime['time']);
+        $startTime = Carbon::parse($dateTime['date'].' '.$dateTime['time']);
         $totalDuration = $selectedServices->sum('duration_minutes');
         $endTime = $startTime->copy()->addMinutes($totalDuration);
 
         try {
-            $apppointment = DB::transaction(function () use ($staffId, $startTime, $endTime, $selectedServices){
+            $apppointment = DB::transaction(function () use ($staffid, $startTime, $endTime, $selectedServices){
                 //同一スタッフの同じ時間帯に重複する予約がないか確認（排他確認）
                 $hasOrverlap = Appointment::where('staff_id',$staffId)
                 ->where('status', '!=', 'cancelled')//キャンセル済みを除外する場合
@@ -164,7 +165,7 @@ class AppointmentController extends Controller
                 ->exists();
             //重複がある場合はロールバックさせる
             if ($hasOrverlap){
-                throw new \Exception('指定された時間帯はすでに他の予約が入っています')
+                throw new \Exception('指定された時間帯はすでに他の予約が入っています');
             }
             //予約の作成
             $newAppointment = Appointment::create([
@@ -174,6 +175,7 @@ class AppointmentController extends Controller
                 'end_at'     => $endTime,       // 予約終了
                 'status'     => 'confirmed',    // デフォルト値があるけど明示してもOK
             ]);
+
 
             //中間テーブルの結合
             $newAppointment->services()->attach($selectedServices);
@@ -185,7 +187,7 @@ class AppointmentController extends Controller
             return redirect()->route('user.mypage');
         } catch (\Exception $e) {
             //重複があった場合、または処理中にエラーがあった場合
-            return redirect()->back()->with('error',$e->getMessege());
+            return redirect()->route('appointments.index')->with('error',$e->getMessage());
         }
 
     }
