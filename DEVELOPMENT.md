@@ -50,3 +50,14 @@ Answer:　'confirmed'が_confirmation今回はname="password_confirmation"
 <label>パスワード(確認用)</label>
 <input type="password" name="password_confirmation">
 </div>
+
+2026/10/09
+予約確定時の時間重複確認、排他制御において
+try {
+    // 処理...
+} catch (\Exception $e) { // ★ここでエラーを捕まえて $e に入れる
+    return redirect()->back()->with('error', $e->getMessage());
+}
+tryのなかで何かエラーが起きた場合処理がcatchにジャンプする。
+$e->getMessage()とは、//処理...の中に書いたthrow new \Exception('エラーメッセージ');
+という文字列になる
