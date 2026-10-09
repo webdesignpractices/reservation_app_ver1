@@ -154,7 +154,7 @@ class AppointmentController extends Controller
         try {
             $apppointment = DB::transaction(function () use ($staffid, $startTime, $endTime, $selectedServices){
                 //同一スタッフの同じ時間帯に重複する予約がないか確認（排他確認）
-                $hasOrverlap = Appointment::where('staff_id',$staffId)
+                $hasOrverlap = Appointment::where('staff_id',$staffid)
                 ->where('status', '!=', 'cancelled')//キャンセル済みを除外する場合
                 ->where(function ($query) use ($startTime,$endTime){
                     //時間帯の重複条件:既存の予約の（開始＜今回の終了）AND　（終了＞今回の開始）
@@ -175,7 +175,6 @@ class AppointmentController extends Controller
                 'end_at'     => $endTime,       // 予約終了
                 'status'     => 'confirmed',    // デフォルト値があるけど明示してもOK
             ]);
-
 
             //中間テーブルの結合
             $newAppointment->services()->attach($selectedServices);

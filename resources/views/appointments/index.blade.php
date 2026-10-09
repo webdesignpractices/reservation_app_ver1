@@ -7,7 +7,10 @@
 </head>
 <body>
 <div class="container">
-    <div class="main">        
+    <div class="main">
+        @if(session('error'))
+        <p class = error>{{session('error')}}</p>
+        @endif        
         <h1>選ばれているメニュー↓</h1>
         @if(session('selected.service_ids'))
             @foreach($selectedServices as $service)
