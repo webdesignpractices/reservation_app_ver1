@@ -9,7 +9,7 @@
     <div class="main"> 
         <h1>↓予約一覧↓</h1>
         <ul>
-            @forelse($user->appointments as $appointment)
+            @forelse($user->appointments ?? [] as $appointment)
             <li class = reserved>
                 
                 @foreach($appointment->services as $service)

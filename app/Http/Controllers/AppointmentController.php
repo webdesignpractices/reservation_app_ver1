@@ -167,6 +167,8 @@ class AppointmentController extends Controller
             if ($hasOrverlap){
                 throw new \Exception('指定された時間帯はすでに他の予約が入っています');
             }
+
+            sleep(5);
             //予約の作成
             $newAppointment = Appointment::create([
                 'user_id'    => auth()->id(),    // ログイン中のユーザーID
