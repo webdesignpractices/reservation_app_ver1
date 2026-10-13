@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     @vite(['resources/css/app.css','resources/js/app.js'])
-    <title>Services</title>
+    <title>TOP</title>
 </head>
 <body>
 <div class="container">
