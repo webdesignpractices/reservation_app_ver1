@@ -11,7 +11,7 @@
         
     <form action="{{route('menu.services.session')}}" method="post">
         @csrf
-        @error('service_error')
+        @error('service_ids')
         <p class = 'error'>{{$message}}</p>
         @enderror
     @foreach($services as $service)

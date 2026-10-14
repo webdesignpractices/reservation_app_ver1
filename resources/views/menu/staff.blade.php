@@ -21,6 +21,9 @@
             @else
             <p>メニューが未選択です</p>
             @endif
+            @error('staff_id')
+            <p class = 'error'>{{$message}}</p>
+            @enderror
         <form action="{{route('menu.staff.session')}}" method="post">
         @csrf  
         @foreach($staff_s as $staff)

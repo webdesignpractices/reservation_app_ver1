@@ -38,7 +38,9 @@
         <p>スタイリストが未選択です</p>
         @endif
         </div>
-    
+            @error('date')
+            <p class = error>{{message}}</p>
+            @enderror
         <div class="navigation">
             <a href="?date={{ $prevWeek }}">◀ 前の週</a>
             <span>{{ $days[0]->format('Y年m月') }}</span>

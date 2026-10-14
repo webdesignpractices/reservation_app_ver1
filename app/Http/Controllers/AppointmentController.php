@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\StaffController;
+use App\Http\Requests\StoreSessionRequest;
 use Illuminate\Support\Facades\Session;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -95,33 +96,28 @@ class AppointmentController extends Controller
 
     }
 
-    public function postServise(Request $request){
+    public function postServise(StoreSessionRequest $request){
 
-    $menuIds = $request->input('service_ids', []);
-        if(empty($menuIds)){
-            return back()
-            ->withErrors(['service_error' => 'メニューを選択してください'])
-            ->withInput();
-        }
-        
-        $validated = $request->validate(['service_ids' => 'required']);
+        $validated = $request->validated();
         session(['selected.service_ids' => $validated['service_ids']]);
         //dd(session('selected.service_ids'));
         return redirect()->route('menu.staff.index');
 
     }
     public function postStaff(Request $request){
-        $validated = $request->validate(['staff_id' => 'required']);
+        
+        $validated = $request->validate(['staff_id' => 'required','integer'],[
+            'staff_id.required' => 'スタッフを選んでください',
+        ]);
         session(['selected.staff_id' => $validated['staff_id']]);
 
-        //dd(session('selected.staff_id'));
+        dd(session('selected.staff_id'));
         return redirect()->route('appointments.index');
 
     }
 
-    public function postDateTime(Request $request){
-        $validated = $request->validate(['date' => 'required',
-        'time' => 'required']);
+    public function postDateTime(StoreSessionRequest $request){
+        $validated = $request->validated();
         session(['selected.date_time' => $validated]);
         //dd(session('selected.date_time'));
         return redirect()->route('appointments.confirm');

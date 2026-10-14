@@ -27,17 +27,17 @@ class StoreSessionRequest extends FormRequest
             'service_ids.*' => ['integer' , 'exists:services,id'],
 
             //スタッフ（必須）
-            'staff_id' => ['required', 'integer', 'exists:staff,id'],
+            'staff_id' => ['required', 'integer', 'exists:staff,id'], 
 
             //日時（必須、未来の日時など）
             'date' => ['required', 'date'],
             'time' => ['required'],
         ];
     }
-    public function message(): array{
+    public function messages(): array{
         return [
             'service_ids.required' => 'メニューを選択してください',
-            'service_ids.min' => 'メニューを1つ以上選択してください',
+            
             'staff_id.required' => 'スタッフを選んでください',
             'date.required' => '予約日時を選択してください',
             'time.required' => '予約日時を選択してください',
