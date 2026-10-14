@@ -11,7 +11,7 @@ class StoreSessionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class StoreSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            //メニュー（配列かつ最低一つは必要）
+            'service_ids' => ['required' , 'array', 'min:1'],
+            'service_ids.*' => ['integer' , 'exists:services,id'],
+
+            //スタッフ（必須）
+            'staff_id' => ['required', 'integer', 'exists:staff,id'],
+
+            //日時（必須、未来の日時など）
+            'date' => ['required', 'date'],
+            'time' => ['required'],
         ];
+    }
+    public function message(): array{
+        
     }
 }
