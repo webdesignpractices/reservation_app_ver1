@@ -96,8 +96,7 @@ class AppointmentController extends Controller
 
     }
 
-    public function postServise(StoreSessionRequest $request){
-
+    public function postServise(StoreServiceRequest $request){
         $validated = $request->validated();
         session(['selected.service_ids' => $validated['service_ids']]);
         //dd(session('selected.service_ids'));
