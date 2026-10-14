@@ -35,6 +35,12 @@ class StoreSessionRequest extends FormRequest
         ];
     }
     public function message(): array{
-        
+        return [
+            'service_ids.required' => 'メニューを選択してください',
+            'service_ids.min' => 'メニューを1つ以上選択してください',
+            'staff_id.required' => 'スタッフを選んでください',
+            'date.required' => '予約日時を選択してください',
+            'time.required' => '予約日時を選択してください',
+        ];
     }
 }
