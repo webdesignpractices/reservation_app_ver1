@@ -113,10 +113,7 @@ class AppointmentController extends Controller
     public function postStaff(Request $request){
         $validated = $request->validate(['staff_id' => 'required']);
         session(['selected.staff_id' => $validated['staff_id']]);
-        
-        if($request->direction === 'back'){
-            return redirect()->route('menu.services.index');
-        }
+
         //dd(session('selected.staff_id'));
         return redirect()->route('appointments.index');
 
