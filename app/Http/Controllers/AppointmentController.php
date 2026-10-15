@@ -84,7 +84,7 @@ class AppointmentController extends Controller
         $date = Carbon::parse($selectedDate);
         $selectedTime = session('selected.date_time.time');//"11:00"
 
-        $startTime = Carbon::parse($selectedDate.''.$selectedTime);
+        $startTime = Carbon::parse($selectedDate.' '.$selectedTime);
         $totalDuration = $selectedServices->sum('duration_minutes');
         $endTime = $startTime->copy()->addMinutes($totalDuration);
         
@@ -99,7 +99,7 @@ class AppointmentController extends Controller
     }
 
     public function postServise(StoreServiceRequest $request){
-        dd($request->all());
+
         $validated = $request->validated();
         session(['selected.service_ids' => $validated['service_ids']]);
         //dd(session('selected.service_ids'));
@@ -108,10 +108,9 @@ class AppointmentController extends Controller
     }
     public function postStaff(StoreStaffRequest $request){
         
-        $validated = $request->validate();
+        $validated = $request->validated();
         session(['selected.staff_id' => $validated['staff_id']]);
 
-        dd(session('selected.staff_id'));
         return redirect()->route('appointments.index');
 
     }
@@ -161,7 +160,6 @@ class AppointmentController extends Controller
                 throw new \Exception('指定された時間帯はすでに他の予約が入っています');
             }
 
-            sleep(5);
             //予約の作成
             $newAppointment = Appointment::create([
                 'user_id'    => auth()->id(),    // ログイン中のユーザーID

@@ -25,12 +25,13 @@ class AuthController extends Controller
 
             if(Auth::attempt($credentials)){
                 $request->session()->regenerate();
-                return redirect()->intended(route('user.mypage'));
+                return redirect()-route('user.mypage');
             }
             return back()
             ->withErrors(['login_error' => 'メールアドレスかパスワードが違います'])
             ->withInput();
     }
+
 
     public function logout(Request $request){
 
@@ -38,7 +39,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('menu.services.index');
+        return redirect()->route('home');
     }
 
     public function mypage(){
