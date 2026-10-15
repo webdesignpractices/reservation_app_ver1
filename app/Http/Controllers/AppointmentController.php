@@ -74,6 +74,11 @@ class AppointmentController extends Controller
                 ]);
     }
     public function confirm(Request $request){
+
+        if(!auth()->check()){
+            return redirect()->guest(route('login'))
+                ->with('login_message', '予約を完了するにはログインしてください');
+        }
         $selectedServiceIds = session('selected.service_ids',[]);
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
 

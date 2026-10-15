@@ -26,7 +26,7 @@ class StoreStaffRequest extends FormRequest
             'staff_id' => ['required', 'integer', 'exists:staff,id'],
         ];
     }
-    public function messeges(){
+    public function messages(){
         return [
             'staff_id.required' => 'スタッフを選んでください',
         ];

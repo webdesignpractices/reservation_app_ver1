@@ -38,12 +38,12 @@ Route::post('/login', [AuthController::class,'login'])->name('user.login.act');
 //既存一般ユーザーログアウト実行
 Route::post('/logout', [AuthController::class,'logout'])->name('user.logout');
 
+
 //既存ユーザーマイページ画面
 Route::get('/mypage', [AuthController::class,'mypage'])->name('user.mypage');
 
-Route::middleware('auth')->group(function (){
+
     //日時選択実行から予約確認画面へ
 Route::get('/customer/appoint/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
     //予約確認画面から予約確定へ
 Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->name('appointments.store');
-});
