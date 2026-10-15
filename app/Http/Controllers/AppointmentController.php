@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\StaffController;
-use App\Http\Requests\StoreSessionRequest;
+use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\StoreStaffRequest;
+use App\Http\Requests\StoreDatetimeRequest;
 use Illuminate\Support\Facades\Session;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -103,11 +105,9 @@ class AppointmentController extends Controller
         return redirect()->route('menu.staff.index');
 
     }
-    public function postStaff(Request $request){
+    public function postStaff(StoreStaffRequest $request){
         
-        $validated = $request->validate(['staff_id' => 'required','integer'],[
-            'staff_id.required' => 'スタッフを選んでください',
-        ]);
+        $validated = $request->validate();
         session(['selected.staff_id' => $validated['staff_id']]);
 
         dd(session('selected.staff_id'));
@@ -115,7 +115,7 @@ class AppointmentController extends Controller
 
     }
 
-    public function postDateTime(StoreSessionRequest $request){
+    public function postDateTime(StoreDatetimeRequest $request){
         $validated = $request->validated();
         session(['selected.date_time' => $validated]);
         //dd(session('selected.date_time'));
