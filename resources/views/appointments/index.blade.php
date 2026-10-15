@@ -38,9 +38,7 @@
         <p>スタイリストが未選択です</p>
         @endif
         </div>
-            @error('date')
-            <p class = error>{{message}}</p>
-            @enderror
+
         <div class="navigation">
             <a href="?date={{ $prevWeek }}">◀ 前の週</a>
             <span>{{ $days[0]->format('Y年m月') }}</span>
@@ -80,6 +78,9 @@
                                 @if(session('selected.service_ids'))
                                 <form action="{{route('appointments.index.session')}}" method="post">
                                     @csrf
+                                        @error('date')
+                                        <p class = error>{{message}}</p>
+                                        @enderror
                                     <input type="hidden" name="date" value="{{$day->format('Y-m-d')}}">
                                     <input type="hidden" name="time" value="{{$timeList}}">
                                     <div class="tooltip-container">

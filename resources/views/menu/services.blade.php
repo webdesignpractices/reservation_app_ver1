@@ -8,11 +8,12 @@
 <body>
     <div class="container">
     <div class="main">    
-         @error('service_ids')
-        <p class = 'error'>{{$message}}</p>
-        @enderror          
+          
     <form action="{{route('menu.services.session')}}" method="post">
-
+    @csrf
+        @error('service_ids')
+        <p class = 'error'>{{$message}}</p>
+        @enderror
     @foreach($services as $service)
 
     <div  class="menu-container">

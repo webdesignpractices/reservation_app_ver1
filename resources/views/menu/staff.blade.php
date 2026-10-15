@@ -21,11 +21,12 @@
             @else
             <p>メニューが未選択です</p>
             @endif
+
+        <form action="{{route('menu.staff.session')}}" method="post">
+        @csrf  
             @error('staff_id')
             <p class = 'error'>{{$message}}</p>
             @enderror
-        <form action="{{route('menu.staff.session')}}" method="post">
-        @csrf  
         @foreach($staff_s as $staff)
         <div  class="menu-container">
             <input type="radio" name="staff_id" value="{{$staff->id}}" id="staff_{{$staff->id}}" 
