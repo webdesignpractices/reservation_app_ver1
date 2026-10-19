@@ -10,9 +10,9 @@
     <div class="main"> 
         <form action="{{route('user.login.act')}}" method="post">  
             @csrf   
-            @if(session('login_message'))
-                <p class = 'in_the_middle_error'>{{session('login_message')}}</p>
-            @endif        
+            @if(session('login_message'))   
+            <p class = "preloginerror">{{session('login_message')}}</p>   
+            @endif
             <h1>ログイン</h1>
             @error('login_error')
              <p class="error">{{$message}}</p>

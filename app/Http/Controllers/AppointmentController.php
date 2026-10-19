@@ -74,11 +74,11 @@ class AppointmentController extends Controller
                 ]);
     }
     public function confirm(Request $request){
-
-        if(!auth()->check()){
+            if(!auth()->check()){
             return redirect()->guest(route('login'))
-                ->with('login_message', '予約を完了するにはログインしてください');
-        }
+                ->with('login_message' , '予約を完了するにはログインしてください');
+            }
+
         $selectedServiceIds = session('selected.service_ids',[]);
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
 
@@ -137,7 +137,8 @@ class AppointmentController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+
         $selectedServiceIds = session('selected.service_ids');
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
 

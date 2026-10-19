@@ -79,7 +79,7 @@
                                 <form action="{{route('appointments.index.session')}}" method="post">
                                     @csrf
                                         @error('date')
-                                        <p class = error>{{message}}</p>
+                                        <p class = error>{{$message}}</p>
                                         @enderror
                                     <input type="hidden" name="date" value="{{$day->format('Y-m-d')}}">
                                     <input type="hidden" name="time" value="{{$timeList}}">
