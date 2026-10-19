@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Http\Controllers\AuthController;
 
 class UserController extends Controller
 {
@@ -35,9 +37,12 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        User::create($validated);
+        $user = User::create($validated);
+        Auth::login($user);
 
-        return redirect()->route('menu.services.index');//->with(['success' => '登録が完了しました']);
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('user.mypage'));//->with(['success' => '登録が完了しました']);
     }
 
     /**
