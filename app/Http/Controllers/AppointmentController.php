@@ -28,7 +28,15 @@ class AppointmentController extends Controller
      */
     public function index(Request $request,Service $service,Staff $staff)
     {   
-        $baseDate = Carbon::parse($request->query('date',today()));
+        $isAdmin = Auth()->check() && auth()->user()->is_admin;
+        $requestedDate = Carbon::parse($request->query('date',today()));
+        //一般ユーザーが今日より過去を指定した場合は「今日」に強制補正
+        if(!$isAdmin && $requestedDate->lt(today())){
+            $baseDate = today();
+        }else{
+            $baseDate = $requestedDate;
+        }
+
         $startDate = $baseDate->copy()->startOfWeek(Carbon::MONDAY);
         
         $days = [];
@@ -41,7 +49,16 @@ class AppointmentController extends Controller
             $timeLists[] = $slot->format('H:i');
         }
         
-        $prevWeek = $startDate->copy()->subWeek()->format('Y-m-d');
+        $prevWeekDate = $startDate->copy()->subWeek();
+
+        //一般ユーザーの場合、前週の開始日が「今日の属する週の開始日」より前になるなら、前週リンクを無効化
+        $currentWeekStart = today()->startOfWeek(Carbon::MONDAY);
+        if(!$isAdmin && $prevWeekDate->lt($currentWeekStart)){
+            $prevWeek = null;
+        }else{
+            $prevWeek = $prevWeekDate->format('Y-m-d');
+        }
+
         $nextWeek = $startDate->copy()->addWeek()->format('Y-m-d');
 
         $selectedServiceIds = session('selected.service_ids',[]);
@@ -57,12 +74,12 @@ class AppointmentController extends Controller
 
         ->whereBetween('start_at',[
             $startDate->copy()->startOfDay(),
-            $startDate->copy()->addDays(7)->endOfDay(),
+            $startDate->copy()->endOfWeek(Carbon::SUNDAY)->endOfDay(),
         ])
+        //一般ユーザーには「現在時刻より前の予約」を取得させない
+
         ->get();
         
-        
-
 
         return view('appointments.index',['timeLists' => $timeLists,
                 'days' => $days,
@@ -71,8 +88,10 @@ class AppointmentController extends Controller
                 'selectedServices' => $selectedServices,
                 'selectedStaff' => $selectedStaff,
                 'appointments' => $appointments,
+                'isAdmin' => $isAdmin,
                 ]);
     }
+
     public function confirm(Request $request){
             if(!auth()->check()){
             return redirect()->guest(route('login'))
