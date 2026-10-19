@@ -28,6 +28,9 @@
             <button type="submit">ログインする</button>
         </form>
     </div>  
+        <div>
+            <a href="{{route('user.signup')}}">会員登録がまだの方はこちら</a>
+        </div>
 </div>
 </body>
 </html>
