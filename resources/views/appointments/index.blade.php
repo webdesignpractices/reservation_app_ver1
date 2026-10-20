@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     @vite(['resources/css/app.css','resources/js/app.js'])   
-    <title>予約確認</title>
+    <title>日時選択</title>
 </head>
 <body>
+    <x-header />
 <div class="container">
     <div class="main">
         @if(session('error'))
@@ -124,9 +125,14 @@
             </tbody>
 
         </table>
-        <a href="{{route('menu.staff.index')}}" class="backStaff">戻る</a>
-        <a href="{{route('menu.services.index')}}" class="startReserve">メニュー選択画面へ</a>
-    </div>
+        
+        </div>
+        <div class="next_button">
+        <a href="{{route('menu.services.index')}}" >メニュー選択画面へ</a>
+        </div>
+        <div class="back_button">
+        <a href="{{route('menu.staff.index')}}">戻る</a>
+        </div>
 
 </div>    
 </body>

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     @vite(['resources/css/app.css','resources/js/app.js'])   
-    <title>Document</title>
+    <title>予約確認</title>
 </head>
 <body>
+    <x-header />
 <div class="container">
     <div class="main">
         <h1>選ばれているメニュー↓</h1>
@@ -27,8 +28,13 @@
         </div>
         <form action="{{route('appointments.store')}}" method="post">
             @csrf
-            <button type="submit">予約を確定させる</button>
+            <div class="next_button">
+            <button type="submit" >予約を確定させる</button>
+            </div>
         </form>
+        <div class="back_button">
+        <a href="{{route('appointments.index')}}">戻る</a>
+        </div>
     </div>
 </div>    
 </body>

@@ -6,6 +6,7 @@
     <title>Services</title>
 </head>
 <body>
+    <x-header />
 <div class="container">
     <div class="main">
         <h1>選ばれているメニュー↓</h1>
@@ -41,12 +42,16 @@
         </div>
         @endforeach
         @if(session('selected.service_ids'))
-        <button type="submit">日時を選択する</button>       
+        <div class="next_button">
+        <button type="submit" >日時を選択する</button>    
+        </div>   
         </form>
         @else        
         <a href="{{route('appointments.index')}}" class="showDate">空き日時を見る</a>
         @endif
-        <a href="{{route('menu.services.index')}}" class="backService">戻る</a>
+        <div class="back_button">
+        <a href="{{route('menu.services.index')}}">戻る</a>
+        </div>
     </div>  
 </div>
 </body>

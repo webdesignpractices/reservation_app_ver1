@@ -85,3 +85,18 @@ button {
     align-items: center;/*変わらないような*/
     
 }
+.back_button {
+    display: flex;
+    justify-content: center; /*ボタンを中央に寄せる*/
+}
+.next_button {
+    display: flex;
+    /*justify-content: flex-end; /*ボタンを右端に寄せる*/
+    width : 100%;
+}
+.next_button button {
+    margin-left: auto;
+    width : auto;
+    
+
+}
