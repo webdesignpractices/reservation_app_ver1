@@ -40,7 +40,11 @@
         </div>
 
         <div class="navigation">
-            <a href="?date={{ $prevWeek }}">◀ 前の週</a>
+            @if($prevWeek == !null)
+            <a href="?date={{ $prevWeek }}">◀前の週</a>
+            @else
+            <span>◁前の週</span>
+            @endif
             <span>{{ $days[0]->format('Y年m月') }}</span>
             <a href="?date={{ $nextWeek }}">次の週 ▶</a>
         </div>
@@ -79,7 +83,7 @@
 
                                 @elseif($isBooked)
                                  <div class="tooltip-container">
-                                    <span class="available-mark">✕</span>
+                                    <span class="unavailable-mark">✕</span>
                                     <span class="tooltip-text">{{ $day->isoFormat('YYYY年MM月DD日') }}<br>開始:{{ $timeList }}</span>
                                 </div>
                                 @else

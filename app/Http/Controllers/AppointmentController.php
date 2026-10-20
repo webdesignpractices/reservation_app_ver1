@@ -29,7 +29,15 @@ class AppointmentController extends Controller
     public function index(Request $request,Service $service,Staff $staff)
     {   
         $isAdmin = Auth()->check() && auth()->user()->is_admin;
-        $requestedDate = Carbon::parse($request->query('date',today()));
+
+        $dateInput = $request->query('date');
+        try{
+            $requestedDate = $dateInput ? Carbon::parse($dateInput) : today();
+        }catch(\Exception $e){
+            $requestedDate = today();
+        }
+        
+
         //一般ユーザーが今日より過去を指定した場合は「今日」に強制補正
         if(!$isAdmin && $requestedDate->lt(today())){
             $baseDate = today();
@@ -76,7 +84,6 @@ class AppointmentController extends Controller
             $startDate->copy()->startOfDay(),
             $startDate->copy()->endOfWeek(Carbon::SUNDAY)->endOfDay(),
         ])
-        //一般ユーザーには「現在時刻より前の予約」を取得させない
 
         ->get();
         
