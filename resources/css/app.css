@@ -72,3 +72,16 @@ button {
 .preloginerror{
     color: skyblue;
 }
+.header {
+    display: flex;
+    justify-content: space-between; /*ロゴを左、ナビを右に配置*/
+    align-items: center; /*縦方向の中央揃え*/
+    padding: 20px;
+    
+}
+.nav ul {
+    display: flex; /*navを横並び*/
+    gap: 20px;
+    align-items: center;/*変わらないような*/
+    
+}
