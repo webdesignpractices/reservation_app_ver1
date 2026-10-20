@@ -69,7 +69,7 @@ class AppointmentController extends Controller
 
         $nextWeekDate = $startDate->copy()->addWeek();
         $maxaLimitDate = today()->addMonths(2);
-        if($nextWeekDate->gt($maxaLimitDate)){
+        if(!$isAdmin && $nextWeekDate->gt($maxaLimitDate)){
             $nextWeek = null;
         }else{
             $nextWeek = $nextWeekDate->format('Y-m-d');
