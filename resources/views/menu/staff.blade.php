@@ -43,10 +43,10 @@
         @if(session('selected.service_ids'))
         <button type="submit">日時を選択する</button>       
         </form>
-        <a href="{{route('menu.services.index')}}" class="backService">戻る</a>
         @else        
         <a href="{{route('appointments.index')}}" class="showDate">空き日時を見る</a>
         @endif
+        <a href="{{route('menu.services.index')}}" class="backService">戻る</a>
     </div>  
 </div>
 </body>

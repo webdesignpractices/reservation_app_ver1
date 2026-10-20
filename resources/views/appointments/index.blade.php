@@ -41,12 +41,16 @@
 
         <div class="navigation">
             @if($prevWeek == !null)
-            <a href="?date={{ $prevWeek }}">◀前の週</a>
+            <a href="?date={{ $prevWeek }}">◀ 前の週</a>
             @else
-            <span>◁前の週</span>
+            <span>◁ 前の週</span>
             @endif
             <span>{{ $days[0]->format('Y年m月') }}</span>
+            @if($nextWeek !== null)
             <a href="?date={{ $nextWeek }}">次の週 ▶</a>
+            @else
+            <span>次の週 ▷</span>
+            @endif
         </div>
     <table>
         <thead>

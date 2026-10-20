@@ -67,7 +67,13 @@ class AppointmentController extends Controller
             $prevWeek = $prevWeekDate->format('Y-m-d');
         }
 
-        $nextWeek = $startDate->copy()->addWeek()->format('Y-m-d');
+        $nextWeekDate = $startDate->copy()->addWeek();
+        $maxaLimitDate = today()->addMonths(2);
+        if($nextWeekDate->gt($maxaLimitDate)){
+            $nextWeek = null;
+        }else{
+            $nextWeek = $nextWeekDate->format('Y-m-d');
+        }
 
         $selectedServiceIds = session('selected.service_ids',[]);
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
