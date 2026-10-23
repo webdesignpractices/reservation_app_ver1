@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminMenuController;
 
 //home画面へ遷移
 Route::get('/home',[AuthController::class,'backHome'])->name('home');
@@ -55,3 +56,5 @@ Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->n
 Route::get('/hair_salon.com/admin/dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
 //ログイン画面遷移
 Route::get('/hair_salon.com/admin/login',[LoginController::class,'index'])->name('admin.login');
+//施術メニュー画面
+Route::get('/hair_salon.com/admin/menus',[AdminMenuController::class,'index'])->name('admin.nav.menus.index');
