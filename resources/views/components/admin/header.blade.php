@@ -1,6 +1,6 @@
 <header class = "header">
         <div class="logo">
-            <a href="{{route('home')}}">Beauty Salon</a>
+            <a href="{{route('admin.dashboard')}}">Hair Salon</a>
         </div>
         <nav class="nav">
             <ul>
@@ -15,7 +15,8 @@
                 @endauth
 
                 @guest
-                <li><a href="{{route('login')}}">ログイン</a></li>
+                
+                <li><a href="{{route('admin.login')}}">ログイン</a></li>
                 @endguest
             </ul>
         </nav> 

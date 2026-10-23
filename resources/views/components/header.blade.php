@@ -1,7 +1,7 @@
 
     <header class = "header">
         <div class="logo">
-            <a href="{{route('home')}}">Beauty Salon</a>
+            <a href="{{route('home')}}">Hair Salon</a>
         </div>
         <nav class="nav">
             <ul>

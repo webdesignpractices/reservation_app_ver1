@@ -7,6 +7,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 //home画面へ遷移
 Route::get('/home',[AuthController::class,'backHome'])->name('home');
@@ -47,3 +49,9 @@ Route::get('/mypage', [AuthController::class,'mypage'])->name('user.mypage');
 Route::get('/customer/appoint/confirm', [AppointmentController::class,'confirm'])->name('appointments.confirm');
     //予約確認画面から予約確定へ
 Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->name('appointments.store');
+
+//Admin側
+//adminのトップページ
+Route::get('/hair_salon.com/admin/dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
+//ログイン画面遷移
+Route::get('/hair_salon.com/admin/login',[LoginController::class,'index'])->name('admin.login');

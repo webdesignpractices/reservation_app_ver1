@@ -13,7 +13,7 @@
             @if(session('login_message'))   
             <p class = "preloginerror">{{session('login_message')}}</p>   
             @endif
-            <h1>ログイン</h1>
+
             @error('login_error')
              <p class="error">{{$message}}</p>
             @enderror 
