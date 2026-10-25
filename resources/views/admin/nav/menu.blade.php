@@ -1,10 +1,10 @@
 <x-admin.layout>
     <x-slot:title>施術一覧</x-slot:title>
-            <form action="#" method="post">
-        {{--@csrf
+            <a href="{{route('admin.menu.create')}}">施術メニューを新規作成する</a>
+        
             @error('service_ids')
             <p class = 'error'>{{$message}}</p>
-            @enderror--}}
+            @enderror
         @foreach($menus as $menu)
 
         <div  class="menu-container">
