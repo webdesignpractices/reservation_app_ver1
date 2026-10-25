@@ -12,4 +12,12 @@ class AdminMenuController extends Controller
         $menus = Service::all();
         return view('admin.nav.menu',['menus' => $menus]);
     }
+
+    public function create(){
+        return view(route('admin.menu.create'));
+    }
+
+    public function store(){
+        return redirect()->route('');
+    }
 }
