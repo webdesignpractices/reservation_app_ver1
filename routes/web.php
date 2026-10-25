@@ -58,6 +58,8 @@ Route::get('/hair_salon.com/admin/dashboard',[AdminDashboardController::class,'d
 Route::get('/hair_salon.com/admin/login',[LoginController::class,'index'])->name('admin.login');
 //施術メニュー画面
 Route::get('/hair_salon.com/admin/menus',[AdminMenuController::class,'index'])->name('admin.nav.menus.index');
+//施術メニュー新規作成画面へ遷移
 Route::get('/hair_salon.com/admin/menus/create',[AdminMenuController::class],'create')->mame('admin.menu.create');
-
+//施術メニュー新規作成
+Route::post('/hair_salon.com/admin/menus/create/post',[AdminMenuController::class],'post')->name('admin.menu.create.post');
 
