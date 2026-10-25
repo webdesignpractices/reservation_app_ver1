@@ -61,5 +61,5 @@ Route::get('/hair_salon.com/admin/menus',[AdminMenuController::class,'index'])->
 //施術メニュー新規作成画面へ遷移
 Route::get('/hair_salon.com/admin/menus/create',[AdminMenuController::class],'create')->mame('admin.menu.create');
 //施術メニュー新規作成
-Route::post('/hair_salon.com/admin/menus/create/post',[AdminMenuController::class],'post')->name('admin.menu.create.post');
+Route::post('/hair_salon.com/admin/menus/create/store',[AdminMenuController::class],'store')->name('admin.menu.create.store');
 
