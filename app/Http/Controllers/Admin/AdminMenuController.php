@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Http\Requests\Admin\NewMenuCreate;
 
 class AdminMenuController extends Controller
 {
@@ -14,10 +15,13 @@ class AdminMenuController extends Controller
     }
 
     public function create(){
-        return view(route('admin.menu.create'));
+        return view('admin.menu.menu_create');
     }
 
-    public function store(){
-        return redirect()->route('');
+    public function store(NewMenuCreate $request){
+        $validated = $request->validated();
+        Service::create($validated);
+
+        return redirect()->route('admin.nav.menus.index');
     }
 }
