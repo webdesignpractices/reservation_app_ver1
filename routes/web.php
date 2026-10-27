@@ -53,13 +53,13 @@ Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->n
 
 //Admin側
 //adminのトップページ
-Route::get('/hair_salon.com/admin/dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
+Route::get('/admin/dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
 //ログイン画面遷移
-Route::get('/hair_salon.com/admin/login',[LoginController::class,'index'])->name('admin.login');
+Route::get('/admin/login',[LoginController::class,'index'])->name('admin.login');
 //施術メニュー画面
-Route::get('/hair_salon.com/admin/menus',[AdminMenuController::class,'index'])->name('admin.nav.menus.index');
+Route::get('/admin/menus',[AdminMenuController::class,'index'])->name('admin.nav.menus.index');
 //施術メニュー新規作成画面へ遷移
-Route::get('/hair_salon.com/admin/menus/create',[AdminMenuController::class],'create')->mame('admin.menu.create');
+Route::get('/admin/menus/create',[AdminMenuController::class,'create'])->name('admin.menu.create');
 //施術メニュー新規作成
-Route::post('/hair_salon.com/admin/menus/create/store',[AdminMenuController::class],'store')->name('admin.menu.create.store');
+Route::post('/admin/menus/create/store',[AdminMenuController::class,'store'])->name('admin.menu.create.store');
 
