@@ -97,6 +97,7 @@ button {
 .next_button button {
     margin-left: auto;
     width : auto;
-    
-
+}
+.archivedMenu_container {
+    border :black solid ;
 }

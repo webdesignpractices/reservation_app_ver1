@@ -21,7 +21,9 @@
         </div>
 
         @endforeach
-        
+        <div>
+            <a href="{{route('admin.archived.menu')}}">非表示にしたメニューを見る</a>
+        </div>
         </form>
             
             <div  class="back_button">

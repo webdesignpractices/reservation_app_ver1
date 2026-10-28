@@ -62,4 +62,6 @@ Route::get('/admin/menus',[AdminMenuController::class,'index'])->name('admin.nav
 Route::get('/admin/menus/create',[AdminMenuController::class,'create'])->name('admin.menu.create');
 //施術メニュー新規作成
 Route::post('/admin/menus/create/store',[AdminMenuController::class,'store'])->name('admin.menu.create.store');
+//非表示のメニューへの遷移
+Route::get('/admin/menus/archived_menu',[AdminMenuController::class ,'archivedMenu'])->name('admin.archived.menu');
 

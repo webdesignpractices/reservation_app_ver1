@@ -24,4 +24,8 @@ class AdminMenuController extends Controller
 
         return redirect()->route('admin.nav.menus.index');
     }
+    public function archivedMenu(){
+        $archivedMenus = Service::where('is_active' , false)->get();
+        return view('admin.menu.archived_menu',['archivedMenus' => $archivedMenus]);
+    }
 }
