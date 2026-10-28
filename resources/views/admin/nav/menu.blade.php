@@ -15,7 +15,7 @@
                 
             <form action="#" method="post">
                 @csrf
-                <a href="#">編集する</a>
+                <a href="#">非表示にする</a>
             </form>
             
         </div>
