@@ -13,7 +13,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::all();
+        $services = Service::where('is_active', true)->get();
 
         return view('menu.services',['services' => $services]);
     }
