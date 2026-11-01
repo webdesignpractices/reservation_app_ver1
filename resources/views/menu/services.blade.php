@@ -23,12 +23,12 @@
             {{in_array($service->id,old('service_ids',session('selected.service_ids', []))) ? 'checked' : ''}}>
             <label for="service_{{$service->id}}">
             <div>
-                <span>メニュー</span>
-                <span>{{$service->name}}</span>
-                <span>所要時間</span>
-                <span>{{$service->formatted_duration}}</span>
-                <span>料金</span>
-                <span>{{$service->formatted_price}}</span>
+                <p>メニュー：<span>{{$service->name}}</span></p>
+                
+                <p>所要時間：<span>{{$service->formatted_duration}}</span></p>
+                
+                <p>料金:<span>{{$service->formatted_price}}</span></p>
+                
             </div>
             </label>
         </div>
