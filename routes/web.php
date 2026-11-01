@@ -64,6 +64,8 @@ Route::get('/admin/menus/create',[AdminMenuController::class,'create'])->name('a
 Route::post('/admin/menus/create/store',[AdminMenuController::class,'store'])->name('admin.menu.create.store');
 //非表示にするルート
 Route::post('/admin/menus/{menu}/archive',[AdminMenuController::class,'archive'])->name('admin.menu.archive');
+//再表示にするルート
+Route::post('/admin/menus/{archivedMenu}/unarchive',[AdminMenuController::class,'unarchive'])->name('admin.menu.unarchive');
 //非表示のメニューへの遷移
 Route::get('/admin/menus/archived_menu',[AdminMenuController::class ,'archivedMenu'])->name('admin.archived.menu');
 

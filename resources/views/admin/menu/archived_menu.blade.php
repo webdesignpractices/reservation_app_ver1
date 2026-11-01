@@ -8,7 +8,9 @@
                 <p>{{$archivedMenu->name}}</p>
                 <p>所要時間：<span>{{$archivedMenu->formatted_duration}}</span></p>                
                 <p>料金：<span>{{$archivedMenu->formatted_price}}</span></p>
-
+            <form action="{{route('admin.menu.unarchive' ,$archivedMenu)}}" method='post'>
+                @csrf
+                <button type="submit">非表示を解除する</button>
             </div>                                       
                 @empty
                 <p>非表示のメニューはありません</p>
