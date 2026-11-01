@@ -16,6 +16,7 @@ class Service extends Model
         'name',
         'duration_minutes',
         'price',
+        'is_active',
     ];
 
     public function getFormattedPriceAttribute(){

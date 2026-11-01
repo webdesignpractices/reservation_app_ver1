@@ -99,5 +99,5 @@ button {
     width : auto;
 }
 .archivedMenu_container {
-    border :black solid ;
+    border :black solid 1px;
 }

@@ -13,9 +13,9 @@
                 <p>所要時間：<span>{{$menu->formatted_duration}}</span></p>                
                 <p>料金：<span>{{$menu->formatted_price}}</span></p>
                 
-            <form action="#" method="post">
+            <form action="{{route('admin.menu.archive' ,$menu)}}" method="post">
                 @csrf
-                <a href="#">非表示にする</a>
+                <button type="submit">非表示にする</button>
             </form>
             
         </div>
