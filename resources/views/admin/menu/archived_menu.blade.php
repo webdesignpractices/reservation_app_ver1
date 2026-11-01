@@ -13,5 +13,8 @@
                 @empty
                 <p>非表示のメニューはありません</p>
             @endforelse
-        </div>
+    </div>
+    <div>
+        <a href="{{route('admin.nav.menus.index')}}">戻る</a>
+    </div>
 </x-admin.layout>
