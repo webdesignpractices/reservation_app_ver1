@@ -14,4 +14,5 @@
     </div>
     <button type="submit">更新する</button>
     </form>
+
 </x-admin.layout>

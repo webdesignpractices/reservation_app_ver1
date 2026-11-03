@@ -1,5 +1,6 @@
 <x-admin.layout>
     <x-slot:title>スタッフ一覧</x-slot:title>
+    <h2>スタッフ一覧</h2>
     @foreach($staff_s as $staff)
         <div  class="menu-container">
                 <p>従業員No.{{$staff->staff_code}}(*変更不可)</p>
@@ -11,5 +12,7 @@
         </div>
 
     @endforeach
-    
+        <div>
+            <a href="{{route('admin.dashboard')}}">戻る</a>
+        </div>
 </x-admin.layout>
