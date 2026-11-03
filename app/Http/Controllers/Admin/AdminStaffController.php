@@ -12,4 +12,17 @@ class AdminStaffController extends Controller
         $staff_s = Staff::all();
         return view('admin.nav.staff',['staff_s' => $staff_s]);
     }
+
+    public function edit(Staff $staff){
+        return view('admin.menu.staff_edit',['staff' => $staff]);
+    }
+    
+    public function update(Request $request ,Staff $staff){
+        $staff->update([
+            'name' => $request->update_name,
+            'description' => $request->update_comment,
+        ]);
+
+        return redirect()->route('admin.staff.index',['staff' => $staff]);
+    }
 }

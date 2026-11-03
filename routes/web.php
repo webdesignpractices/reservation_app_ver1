@@ -72,3 +72,7 @@ Route::get('/admin/menus/archived_menu',[AdminMenuController::class ,'archivedMe
 
 //管理者用スタッフ表示
 Route::get('/admin/staff/index',[AdminStaffController::class, 'index'])->name('admin.staff.index');
+//スタッフ編集遷移
+Route::get('/admin/staff/{staff}/edit',[AdminStaffController::class, 'edit'])->name('admin.staff.edit');
+
+Route::put('/admin/staff/{staff}/update',[AdminStaffController::class, 'update'])->name('admin.staff.update');
