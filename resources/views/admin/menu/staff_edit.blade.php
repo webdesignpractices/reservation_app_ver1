@@ -10,7 +10,7 @@
     </div>
     <div>
         <p>コメント</p>
-        <textarea name="update_comment">{{($staff->description)}}</textarea>
+        <textarea name="update_descriptiont">{{($staff->description)}}</textarea>
     </div>
     <button type="submit">更新する</button>
     </form>
