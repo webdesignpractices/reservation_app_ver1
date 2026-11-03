@@ -17,6 +17,9 @@ class AdminStaffController extends Controller
         return view('admin.menu.staff_edit',['staff' => $staff]);
     }
 
+    public function create(){
+        return view('admin.menu.staff_create');
+    }
     public function update(Request $request ,Staff $staff){
         $staff->update([
             'name' => $request->update_name,

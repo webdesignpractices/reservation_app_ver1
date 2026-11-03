@@ -74,5 +74,7 @@ Route::get('/admin/menus/archived_menu',[AdminMenuController::class ,'archivedMe
 Route::get('/admin/staff/index',[AdminStaffController::class, 'index'])->name('admin.staff.index');
 //スタッフ編集遷移
 Route::get('/admin/staff/{staff}/edit',[AdminStaffController::class, 'edit'])->name('admin.staff.edit');
-
+//スタッフ編集完了
 Route::put('/admin/staff/{staff}/update',[AdminStaffController::class, 'update'])->name('admin.staff.update');
+//スタッフ追加画面
+Route::get('/admin/staff/create',[AdminStaffController::class , 'create'])->name('admin.staff.create');

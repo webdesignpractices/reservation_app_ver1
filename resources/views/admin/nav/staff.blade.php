@@ -1,9 +1,12 @@
 <x-admin.layout>
     <x-slot:title>スタッフ一覧</x-slot:title>
-    <h2>スタッフ一覧</h2>
+    <h2>スタイリスト一覧</h2>
+    <div>
+        <a href="{{route('admin.staff.create')}}" >スタッフを追加する</a>
+    </div>
     @foreach($staff_s as $staff)
         <div  class="menu-container">
-                <p>従業員No.{{$staff->staff_code}}(*変更不可)</p>
+                <p>スタッフNo.{{$staff->staff_code}}(*変更不可)</p>
                 <p>スタイリスト名：<span>{{$staff->name}}</span></p>               
                 <p>{{$staff->description}}</p>
                 <div>
