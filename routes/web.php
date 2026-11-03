@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminMenuController;
+use App\Http\Controllers\Admin\AdminStaffController;
 
 //home画面へ遷移
 Route::get('/home',[AuthController::class,'backHome'])->name('home');
@@ -69,3 +70,5 @@ Route::post('/admin/menus/{archivedMenu}/unarchive',[AdminMenuController::class,
 //非表示のメニューへの遷移
 Route::get('/admin/menus/archived_menu',[AdminMenuController::class ,'archivedMenu'])->name('admin.archived.menu');
 
+//管理者用スタッフ表示
+Route::get('/admin/staff/index',[AdminStaffController::class, 'index'])->name('admin.staff.index');
