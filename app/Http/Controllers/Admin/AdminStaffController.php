@@ -20,6 +20,16 @@ class AdminStaffController extends Controller
     public function create(){
         return view('admin.menu.staff_create');
     }
+
+    public function store(Request $request){
+        Staff::create([
+            'staff_code' => $request->new_staff_code,
+            'name' => $request->new_name,
+            'description' => $request->new_description,
+        ]);
+
+        return redirect()->route('admin.staff.index');
+    }
     public function update(Request $request ,Staff $staff){
         $staff->update([
             'name' => $request->update_name,

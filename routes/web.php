@@ -78,3 +78,5 @@ Route::get('/admin/staff/{staff}/edit',[AdminStaffController::class, 'edit'])->n
 Route::put('/admin/staff/{staff}/update',[AdminStaffController::class, 'update'])->name('admin.staff.update');
 //スタッフ追加画面
 Route::get('/admin/staff/create',[AdminStaffController::class , 'create'])->name('admin.staff.create');
+//スタッフstore処理
+Route::post('/admin/staff/store',[AdminStaffController::class ,'store'])->name('admin.staff.store');
