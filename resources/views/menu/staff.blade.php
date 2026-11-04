@@ -29,29 +29,29 @@
             <p class = 'error'>{{$message}}</p>
             @enderror
         @foreach($staff_s as $staff)
-        <div  class="menu-container">
-            <input type="radio" name="staff_id" value="{{$staff->id}}" id="staff_{{$staff->id}}" 
-             {{session('selected.staff_id') == $staff->id ? 'checked' :''}}>
-            <label for="staff_{{$staff->id}}">
-                <span>スタイリスト名：</span>
-                <span>{{$staff->name}}</span><br>
-                <span>コメント：</span>
-                <span>{{$staff->description}}</span>
-            </div>
-
-        </div>
+            <div  class="menu-container">
+                <input type="radio" name="staff_id" value="{{$staff->id}}" id="staff_{{$staff->id}}" 
+                {{session('selected.staff_id') == $staff->id ? 'checked' :''}}>
+                <label for="staff_{{$staff->id}}">
+                    <span>スタイリスト名：</span>
+                    <span>{{$staff->name}}</span><br>
+                    <span>コメント：</span>
+                    <span>{{$staff->description}}</span>
+            </div>        
         @endforeach
         @if(session('selected.service_ids'))
-        <div class="next_button">
-        <button type="submit" >日時を選択する</button>    
-        </div>   
+            <div class="next_button">
+                <button type="submit" >日時を選択する</button>    
+            </div>   
         </form>
-        @else        
-        <a href="{{route('appointments.index')}}" class="showDate">空き日時を見る</a>
+        @else   
+            <div>     
+                <a href="{{route('appointments.index')}}" class="showDate">空き日時を見る</a>
+            </div>
         @endif
-        <div class="back_button">
-        <a href="{{route('menu.services.index')}}">戻る</a>
-        </div>
+            <div class="back_button">
+                <a href="{{route('menu.services.index')}}">戻る</a>
+            </div>
     </div>  
 </div>
 </body>
