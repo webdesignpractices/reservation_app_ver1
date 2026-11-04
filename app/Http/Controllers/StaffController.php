@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Staff;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Enums\StaffStatus;
 
 class StaffController extends Controller
 {
@@ -15,7 +16,7 @@ class StaffController extends Controller
     {
         $selectedServiceIds = session('selected.service_ids',[]);
         $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
-        $staff_s = Staff::all();
+        $staff_s = Staff::where('status',StaffStatus::Active)->get();
         return view('menu.staff',['staff_s' => $staff_s, 'selectedServices' => $selectedServices]);
     }
 
