@@ -61,3 +61,10 @@ try {
 tryのなかで何かエラーが起きた場合処理がcatchにジャンプする。
 $e->getMessage()とは、//処理...の中に書いたthrow new \Exception('エラーメッセージ');
 という文字列になる
+
+2026/11/04
+後でターミナルからカラムを追加した場合にきちんと追加されているか確かめる方法
+tinkerを起動する
+> use Illuminate\Support\Facades\Schema;
+> Schema::hasColumn('テーブル名', '確認したいカラム');
+を入力することで確認できる
