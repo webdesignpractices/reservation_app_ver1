@@ -6,7 +6,7 @@ use App\Models\Staff;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Enums\StaffStatus;
-
+use Illuminate\Validation\Rules\Enum;
 class StaffController extends Controller
 {
     /**

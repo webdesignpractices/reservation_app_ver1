@@ -80,3 +80,5 @@ Route::put('/admin/staff/{staff}/update',[AdminStaffController::class, 'update']
 Route::get('/admin/staff/create',[AdminStaffController::class , 'create'])->name('admin.staff.create');
 //スタッフstore処理
 Route::post('/admin/staff/store',[AdminStaffController::class ,'store'])->name('admin.staff.store');
+//スタッフの勤務状況処理
+Route::patch('/admin/staff/{staff}/updateStatus',[AdminStaffController::class ,'updateStatus'])->name('admin.staff.updateStatus');

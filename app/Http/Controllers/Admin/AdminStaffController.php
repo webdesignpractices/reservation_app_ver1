@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Staff;
+use App\Enums\StaffStatus;
+use Illuminate\Validation\Rules\Enum;
 
 class AdminStaffController extends Controller
 {
@@ -37,5 +39,17 @@ class AdminStaffController extends Controller
         ]);
 
         return redirect()->route('admin.staff.index',['staff' => $staff]);
+    }
+
+    public function updateStatus(Request $request ,Staff $staff){
+
+        $validated = $request->validate([
+            'status' => ['required' ,new Enum(StaffStatus::class)],
+        ]);
+        $staff->update([
+            'status' => $validated['status'],
+        ]);
+
+        return redirect()->route('admin.staff.index');
     }
 }
