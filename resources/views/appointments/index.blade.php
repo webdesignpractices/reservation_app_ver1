@@ -17,15 +17,16 @@
             @foreach($selectedServices as $service)
         <div class="menu-container">        
 
-        <div>
-            <span>メニュー：{{$service->name}}</span><br>
-            <span>所要時間：{{$service->formatted_duration}}</span><br>
-            <span>料金：{{$service->formatted_price}}</span>
+            <div>
+                <span>メニュー：{{$service->name}}</span><br>
+                <span>所要時間：{{$service->formatted_duration}}</span><br>
+                <span>料金：{{$service->formatted_price}}</span>
+            </div>
         </div>
-            @endforeach
-        @else
-            <p>メニューが選ばれていません</p>
-        @endif
+                @endforeach
+            @else
+                <p>メニューが選ばれていません</p>
+            @endif
         
         <h1>選ばれているスタイリスト↓</h1>
         @if(session('selected.staff_id'))
@@ -35,13 +36,14 @@
                 <span>{{$selectedStaff->name}}</span>
                 <span>コメント：{{$selectedStaff->description}}</span>
             </div>
+        </div>
         @else
         <p>スタイリストが未選択です</p>
         @endif
-        </div>
+        
 
         <div class="navigation">
-            @if($prevWeek == !null)
+            @if($prevWeek !== null)
             <a href="?date={{ $prevWeek }}">◀ 前の週</a>
             @else
             <span>◁ 前の週</span>
@@ -53,6 +55,7 @@
             <span>次の週 ▷</span>
             @endif
         </div>
+        
     <table>
         <thead>
             <tr>
@@ -102,18 +105,16 @@
                                     <input type="hidden" name="date" value="{{$day->format('Y-m-d')}}">
                                     <input type="hidden" name="time" value="{{$timeList}}">
                                     <div class="tooltip-container">
-                                    <button type="submit">〇</button>
-                                    <span class="tooltip-text">{{$day->isoFormat('YYYY年MM月DD日')}}<br>開始:{{$timeList}}</span>
+                                        <button type="submit">〇</button>
+                                        <span class="tooltip-text">{{$day->isoFormat('YYYY年MM月DD日')}}<br>開始:{{$timeList}}</span>
+                                    </div>
                                 </form>
                                 @else
                                 <div class="tooltip-container">
                                     <span class="available-mark">〇</span>
                                     <span class="tooltip-text">{{ $day->isoFormat('YYYY年MM月DD日') }}<br>開始:{{ $timeList }}</span>
                                 </div>
-                                @endif
-                               
-                                    
-                                
+                                @endif            
                     </td>
                                 
                                @endif
@@ -126,7 +127,7 @@
 
         </table>
         
-        </div>
+        
         <div class="next_button">
         <a href="{{route('menu.services.index')}}" >メニュー選択画面へ</a>
         </div>
