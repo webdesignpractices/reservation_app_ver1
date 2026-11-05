@@ -177,12 +177,14 @@ class AppointmentController extends Controller
         $staffid = session('selected.staff_id');
         $dateTime = session('selected.date_time');//中身["date" => "2026-04-04","time" => "15:00"]
 
+        $staff = Staff::findOrFail($staffid);
+
         $startTime = Carbon::parse($dateTime['date'].' '.$dateTime['time']);
         $totalDuration = $selectedServices->sum('duration_minutes');
         $endTime = $startTime->copy()->addMinutes($totalDuration);
 
         try {
-            $apppointment = DB::transaction(function () use ($staffid, $startTime, $endTime, $selectedServices){
+            $apppointment = DB::transaction(function () use ($staffid, $staff,$startTime, $endTime, $selectedServices){
                 //同一スタッフの同じ時間帯に重複する予約がないか確認（排他確認）
                 $hasOrverlap = Appointment::where('staff_id',$staffid)
                 ->where('status', '!=', 'cancelled')//キャンセル済みを除外する場合
@@ -201,7 +203,8 @@ class AppointmentController extends Controller
             //予約の作成
             $newAppointment = Appointment::create([
                 'user_id'    => auth()->id(),    // ログイン中のユーザーID
-                'staff_id'   => $staffid,      // 選んだスタッフID
+                'staff_id'   => $staffid,  // 選んだスタッフID
+                'staff_name' => $staff->name,    //ここでスタッフの名前をスナップショットとして渡す
                 'start_at'   => $startTime,     // 予約開始
                 'end_at'     => $endTime,       // 予約終了
                 'status'     => 'confirmed',    // デフォルト値があるけど明示してもOK
