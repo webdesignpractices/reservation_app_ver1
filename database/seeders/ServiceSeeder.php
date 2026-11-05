@@ -19,20 +19,19 @@ class ServiceSeeder extends Seeder
             'price' => 5000,
         ]);
         Service::create([
-            'name' => 'カラー(ブリーチなし)',
-            'duration_minutes' => 90,
-            'price' => 8000,
+            'name' => 'カラー(ブリーチなし)', 'price' => 10000, 'duration_minutes' => 90,
         ]);
         Service::create([
-            'name' => 'カラー(ブリーチあり)',
-            'duration_minutes' => 120,
-            'price' => 13000,
+            'name' => 'カラー(ブリーチあり)', 'price' => 15000, 'duration_minutes' => 120,
         ]);
         Service::create([
-            'name' => '縮毛矯正',
-            'duration_minutes' => 180,
-            'price' => 18000,
+            'name' => '縮毛矯正(カットなし)', 'price' => 16500, 'duration_minutes' => 150,
         ]);
-
+        Service::create(['name' => '縮毛矯正(カットあり)', 'price' => 18000, 'duration_minutes' => 180,
+        ]);
+        Service::create(['name' => '前髪カット', 'price' => 1000, 'duration_minutes' => 30,
+        ]);
+        Service::create(['name' => 'ヘッドスパ', 'price' => 5000, 'duration_minutes' => 60,
+        ]);
     }
 }
