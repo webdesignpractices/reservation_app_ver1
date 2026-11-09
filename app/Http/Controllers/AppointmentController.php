@@ -16,6 +16,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Http\Controllers\Auth;
+use App\Services\CalendarService;
 
 
 
@@ -26,83 +27,27 @@ class AppointmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request,Service $service,Staff $staff)
+    public function index(Request $request,CalendarService $calendarSevice)
     {   
-        $isAdmin = Auth()->check() && auth()->user()->is_admin;
+        $calendarData = $calendarSevice->getCalendarSkeleton($request);
+        $sessionData = $calendarSevice->getConditionsFromSession();
+        $appointments = $calendarSevice->getAppointments(
+        $calendarData['startDate'],
+        $sessionData['selectedStaffId']);
 
-        $dateInput = $request->query('date');
-        try{
-            $requestedDate = $dateInput ? Carbon::parse($dateInput) : today();
-        }catch(\Exception $e){
-            $requestedDate = today();
-        }
         
 
-        //一般ユーザーが今日より過去を指定した場合は「今日」に強制補正
-        if(!$isAdmin && $requestedDate->lt(today())){
-            $baseDate = today();
-        }else{
-            $baseDate = $requestedDate;
-        }
+        return view('appointments.index',[
+            'timeLists' => $calendarData['timeLists'],
+            'days' => $calendarData['days'],
+            'prevWeek' => $calendarData['prevWeek'],
+            'nextWeek' => $calendarData['nextWeek'],
+            'isAdmin' => $calendarData['isAdmin'],
+            'selectedServices' => $sessionData['selectedServices'],
+            'selectedStaff' => $sessionData['selectedStaff'],
+            'appointments' => $appointments,        
+            ]);
 
-        $startDate = $baseDate->copy()->startOfWeek(Carbon::MONDAY);
-        
-        $days = [];
-        for($i = 0; $i < 7; $i++){
-            $days[] = $startDate->copy()->addDays($i);
-        }
-        $slots = CarbonPeriod::since('9:00')->minutes(30)->until('18:00');
-        $timeLists = [];
-        foreach($slots as $slot){
-            $timeLists[] = $slot->format('H:i');
-        }
-        
-        $prevWeekDate = $startDate->copy()->subWeek();
-
-        //一般ユーザーの場合、前週の開始日が「今日の属する週の開始日」より前になるなら、前週リンクを無効化
-        $currentWeekStart = today()->startOfWeek(Carbon::MONDAY);
-        if(!$isAdmin && $prevWeekDate->lt($currentWeekStart)){
-            $prevWeek = null;
-        }else{
-            $prevWeek = $prevWeekDate->format('Y-m-d');
-        }
-
-        $nextWeekDate = $startDate->copy()->addWeek();
-        $maxaLimitDate = today()->addMonths(2);
-        if(!$isAdmin && $nextWeekDate->gt($maxaLimitDate)){
-            $nextWeek = null;
-        }else{
-            $nextWeek = $nextWeekDate->format('Y-m-d');
-        }
-
-        $selectedServiceIds = session('selected.service_ids',[]);
-        $selectedServices = Service::whereIn('id',$selectedServiceIds)->get();
-
-        $selectedStaffId = session('selected.staff_id');
-        $selectedStaff = $selectedStaffId ? Staff::find($selectedStaffId) : null;
-
-        $appointments = Appointment::query()
-        ->when($selectedStaffId,fn($query,$staffId) => 
-            $query->where('staff_id',$staffId)
-        )
-
-        ->whereBetween('start_at',[
-            $startDate->copy()->startOfDay(),
-            $startDate->copy()->endOfWeek(Carbon::SUNDAY)->endOfDay(),
-        ])
-
-        ->get();
-        
-
-        return view('appointments.index',['timeLists' => $timeLists,
-                'days' => $days,
-                'prevWeek' => $prevWeek,
-                'nextWeek' => $nextWeek,
-                'selectedServices' => $selectedServices,
-                'selectedStaff' => $selectedStaff,
-                'appointments' => $appointments,
-                'isAdmin' => $isAdmin,
-                ]);
     }
 
     public function confirm(Request $request){

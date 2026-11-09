@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-
+use App\Models\Appointment;
 
 class AdminCalendarController extends Controller
 {
@@ -29,6 +29,7 @@ class AdminCalendarController extends Controller
 
         $prevWeek = $startDate->copy()->subWeek()->format('Y-m-d');
         $nextWeek = $startDate->copy()->addWeek()->format('Y-m-d');
+
 
         return view('admin.menu.calendar',[
             'days' => $days,
