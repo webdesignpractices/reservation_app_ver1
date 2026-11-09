@@ -3,42 +3,44 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\StaffController;
+use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\StoreStaffRequest;
+use App\Http\Requests\StoreDatetimeRequest;
+use Illuminate\Support\Facades\Session;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Models\Service;
+use App\Models\Staff;
+use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use App\Models\Appointment;
+use App\Http\Controllers\Auth;
+use App\Services\CalendarService;
 
 class AdminCalendarController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request ,CalendarService $calendarSevice){
+        $calendarData = $calendarSevice->getCalendarSkeleton($request);
+        $sessionData = $calendarSevice->getConditionsFromSession();
+        $appointments = $calendarSevice->getAppointments(
+        $calendarData['startDate'],
+        $sessionData['selectedStaffId']);
 
-        $baceDate = $request->input('date') 
-        ? Carbon::parse($request->input('date')) 
-        : Carbon::today();
-        $startDate = $baceDate->copy()->startOfWeek(Carbon::MONDAY);
+        
 
-        $days = [];
-        for($i = 0; $i<7; $i++){
-            $days[] = $startDate->copy()->addDays($i);
-        }
-        $slots = CarbonPeriod::since('9:00')->minutes(30)->until('18:00');
-        $timeLists = [];
-        foreach($slots as $slot){
-            $timeLists[] = $slot->format('H:i');
-        }
+        return view('appointments.index',[
+            'timeLists' => $calendarData['timeLists'],
+            'days' => $calendarData['days'],
+            'prevWeek' => $calendarData['prevWeek'],
+            'nextWeek' => $calendarData['nextWeek'],
+            'isAdmin' => $calendarData['isAdmin'],
+            'selectedServices' => $sessionData['selectedServices'],
+            'selectedStaff' => $sessionData['selectedStaff'],
+            'appointments' => $appointments,        
+            ]);
 
-        $prevWeek = $startDate->copy()->subWeek()->format('Y-m-d');
-        $nextWeek = $startDate->copy()->addWeek()->format('Y-m-d');
-
-
-        return view('admin.menu.calendar',[
-            'days' => $days,
-            //'slots' => $slots,
-            'timeLists' => $timeLists,
-            'prevWeek' => $prevWeek,
-            'nextWeek' => $nextWeek,
-
-        ]);
     }
 
 
