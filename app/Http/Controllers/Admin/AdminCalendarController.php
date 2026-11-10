@@ -30,7 +30,7 @@ class AdminCalendarController extends Controller
 
         
 
-        return view('appointments.index',[
+        return view('admin.menu.calendar',[
             'timeLists' => $calendarData['timeLists'],
             'days' => $calendarData['days'],
             'prevWeek' => $calendarData['prevWeek'],
@@ -42,6 +42,12 @@ class AdminCalendarController extends Controller
             ]);
 
     }
+    public function reserved(Request $request, CalendarService $calendarSevice){
+        $calendarData = $calendarSevice->getReservedData($request);
 
+        return view('appointments.index',[
+            'calendarData' => $calendarData,
+        ]);
+    }
 
 }

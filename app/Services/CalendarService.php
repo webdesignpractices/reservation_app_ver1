@@ -91,6 +91,36 @@ class CalendarService {
         ];
     }
 
+    public function getReservedData($isAdmin){
+
+        $days = $this->getCalendarSkeleton('days');
+        $timeLists = $this->getCalendarSkeleton('timeLists');
+        $appointments = $this->getAppointments('appointments');
+        
+        $calendarData = [];
+        foreach($days as $day){
+            foreach($timeLists as $timeList){
+                $slotStart = Carbon::parse($day->format('Y-m-d' .' '.$timeList));
+                $slotEnd = $slotStart->copy()->addminutes(30);
+
+                $isPast = !$isAdmin && $slotStart->isPast();
+
+                $isBooked = $appointments->contains(fn($appointment) => 
+                $slotStart->lt($appointment->end_at)
+                && $slotEnd->gt($appointment->start_at));
+
+                $calendarData[$day->format('Y-m-d')][$timeList] = [
+                    'slotStart' => $slotStart,
+                    'slotEnd' => $slotEnd,
+                    'isPast' => $isPast,
+                    'isPast' => $isPast,
+                ];
+            }
+        }
+        return $calendarData;
+        
+    }
+
     public function getAppointments($startDate, $selectedStaffId){
 
         $appointments = Appointment::query()

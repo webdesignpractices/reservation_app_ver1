@@ -50,6 +50,14 @@ class AppointmentController extends Controller
 
     }
 
+    public function reserved(Request $request, CalendarService $calendarSevice){
+        $calendarData = $calendarSevice->getReservedData($request);
+
+        return view('appointments.index',[
+            'calendarData' => $calendarData,
+        ]);
+    }
+
     public function confirm(Request $request){
             if(!auth()->check()){
             return redirect()->guest(route('login'))
