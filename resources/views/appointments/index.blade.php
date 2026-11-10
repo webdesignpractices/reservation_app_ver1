@@ -75,15 +75,9 @@
                     <td>{{ $timeList }}</td>
                         @foreach($days as $day)
                             @php
-                            $slotStart = \Carbon\Carbon::parse($day->format('Y-m-d') .' '. $timeList);
-                            $slotEnd = $slotStart->copy()->addMinutes(30);
-
-                            $isPast = !$isAdmin && $slotStart->isPast();
-                            
-                            $isBooked = $appointments->contains(fn($appointment) => 
-                            $slotStart->lt($appointment->end_at)&&
-                            $slotEnd->gt($appointment->start_at)
-                            )
+                            $slot = $calendarData[$day->format('Y-m-d')][$timeList] ?? [];
+                            $isPast = $slot['isPast'] ?? false;
+                            $isBooked = $slot['isBooked'] ?? false;
                             @endphp
                     <td>
                                 @if($isPast)
