@@ -20,10 +20,10 @@ use App\Http\Controllers\Admin\AdminCalendarController;
 
 
 class CalendarService {
-    public function getCalendarSkeleton(Request $request){
+    public function getCalendarSkeleton($type = null){
         $isAdmin = Auth()->check() && auth()->user()->is_admin;
 
-        $dateInput = $request->query('date');
+        $dateInput = request()->query('date');
         try{
             $requestedDate = $dateInput ? Carbon::parse($dateInput) : today();
         }catch(\Exception $e){
@@ -39,15 +39,18 @@ class CalendarService {
 
         $startDate = $baseDate->copy()->startOfWeek(Carbon::MONDAY);
         
+
         $days = [];
         for($i = 0; $i < 7; $i++){
             $days[] = $startDate->copy()->addDays($i);
-        }
+            }
+
         $slots = CarbonPeriod::since('9:00')->minutes(30)->until('18:00');
+
         $timeLists = [];
         foreach($slots as $slot){
             $timeLists[] = $slot->format('H:i');
-        }
+            }
         
         $prevWeekDate = $startDate->copy()->subWeek();
 
@@ -92,28 +95,31 @@ class CalendarService {
     }
 
     public function getReservedData($isAdmin){
-
-        $days = $this->getCalendarSkeleton('days');
-        $timeLists = $this->getCalendarSkeleton('timeLists');
-        $appointments = $this->getAppointments('appointments');
         
+            $skeleton = $this->getCalendarSkeleton(); 
+            $days = $skeleton['days'];
+            $timeLists = $skeleton['timeLists'];
+            $appointments = $this->getAppointments($days[0] ?? Carbon::today()) ?? collect();
+            
+
         $calendarData = [];
         foreach($days as $day){
             foreach($timeLists as $timeList){
-                $slotStart = Carbon::parse($day->format('Y-m-d' .' '.$timeList));
+                $datekey = $day->format('Y-m-d');
+                $slotStart = Carbon::parse($datekey .' '. $timeList);
                 $slotEnd = $slotStart->copy()->addminutes(30);
 
                 $isPast = !$isAdmin && $slotStart->isPast();
 
                 $isBooked = $appointments->contains(fn($appointment) => 
                 $slotStart->lt($appointment->end_at)
-                && $slotEnd->gt($appointment->start_at));
+                && $slotEnd->gt($appointment->start_at)) ?? false;
 
-                $calendarData[$day->format('Y-m-d')][$timeList] = [
+                $calendarData[$datekey][$timeList] = [
                     'slotStart' => $slotStart,
                     'slotEnd' => $slotEnd,
                     'isPast' => $isPast,
-                    'isPast' => $isPast,
+                    'isBooked' => $isBooked,
                 ];
             }
         }
@@ -121,9 +127,13 @@ class CalendarService {
         
     }
 
-    public function getAppointments($startDate, $selectedStaffId){
+    public function getAppointments($startDate, $selectedStaffId = null){
 
-        $appointments = Appointment::query()
+        if (!$startDate instanceof Carbon) {
+            $startDate = Carbon::parse($startDate);
+        }
+
+        return $appointments = Appointment::query()
         ->when($selectedStaffId,fn($query,$staffId) => 
             $query->where('staff_id',$staffId)
         )
@@ -133,8 +143,8 @@ class CalendarService {
             $startDate->copy()->endOfWeek(Carbon::SUNDAY)->endOfDay(),
         ])
 
-        ->get();
+        ->get() ?? collect();
 
-        return $appointments;
+        
     }
 }

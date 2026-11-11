@@ -77,7 +77,7 @@
                             @php
                             $slot = $calendarData[$day->format('Y-m-d')][$timeList] ?? [];
                             $isPast = $slot['isPast'] ?? false;
-                            $isBooked = $slot['isBooked'] ?? false;
+                            $isBooked = $slot['isBooked'] ?? false;                         
                             @endphp
                     <td>
                                 @if($isPast)
