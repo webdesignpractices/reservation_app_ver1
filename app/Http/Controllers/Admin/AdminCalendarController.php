@@ -21,32 +21,38 @@ use App\Services\CalendarService;
 
 class AdminCalendarController extends Controller
 {
-    public function index(Request $request ,CalendarService $calendarSevice){
-        $calendarData = $calendarSevice->getCalendarSkeleton($request);
-        $sessionData = $calendarSevice->getConditionsFromSession();
-        $appointments = $calendarSevice->getAppointments(
-        $calendarData['startDate'],
+    public function index(Request $request ,CalendarService $calendarService){
+        $isAdmin = auth()->check() && auth()->user()->is_admin;
+
+        $skeleton = $calendarService->getCalendarSkeleton($request);
+        $sessionData = $calendarService->getConditionsFromSession();
+        $calendarData = $calendarService->getReservedData($isAdmin);
+        $appointments = $calendarService->getAppointments(
+        $skeleton['startDate'],
         $sessionData['selectedStaffId']);
 
         
 
         return view('admin.menu.calendar',[
-            'timeLists' => $calendarData['timeLists'],
-            'days' => $calendarData['days'],
-            'prevWeek' => $calendarData['prevWeek'],
-            'nextWeek' => $calendarData['nextWeek'],
-            'isAdmin' => $calendarData['isAdmin'],
+            'timeLists' => $skeleton['timeLists'],
+            'days' => $skeleton['days'],
+            'prevWeek' => $skeleton['prevWeek'],
+            'nextWeek' => $skeleton['nextWeek'],
+            'isAdmin' => $skeleton['isAdmin'],
             'selectedServices' => $sessionData['selectedServices'],
             'selectedStaff' => $sessionData['selectedStaff'],
-            'appointments' => $appointments,        
+            'appointments' => $appointments,  
+            'calendarData' => $calendarData,     
             ]);
 
     }
-    public function reserved(Request $request, CalendarService $calendarSevice){
-        $calendarData = $calendarSevice->getReservedData($request);
+    public function reserved(Request $request, CalendarService $calendarService){
+        
+        $calendarData = $calendarService->getReservedData($request);
 
-        return view('appointments.index',[
+        return view('admin.menu.calendar',[
             'calendarData' => $calendarData,
+            
         ]);
     }
 

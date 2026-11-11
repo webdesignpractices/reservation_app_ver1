@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\AdminCalendarController;
 
 
 class CalendarService {
-    public function getCalendarSkeleton($type = null){
+    public function getCalendarSkeleton(){
         $isAdmin = Auth()->check() && auth()->user()->is_admin;
 
         $dateInput = request()->query('date');
