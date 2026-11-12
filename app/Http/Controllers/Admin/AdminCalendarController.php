@@ -22,6 +22,7 @@ use App\Services\CalendarService;
 class AdminCalendarController extends Controller
 {
     public function index(Request $request ,CalendarService $calendarService){
+        
         $isAdmin = auth()->check() && auth()->user()->is_admin;
 
         $skeleton = $calendarService->getCalendarSkeleton($request);
@@ -31,8 +32,7 @@ class AdminCalendarController extends Controller
         $skeleton['startDate'],
         $sessionData['selectedStaffId']);
 
-        
-
+    
         return view('admin.menu.calendar',[
             'timeLists' => $skeleton['timeLists'],
             'days' => $skeleton['days'],

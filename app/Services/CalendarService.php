@@ -101,6 +101,7 @@ class CalendarService {
             $timeLists = $skeleton['timeLists'];
             $appointments = $this->getAppointments($days[0] ?? Carbon::today()) ?? collect();
             
+        
 
         $calendarData = [];
         foreach($days as $day){
@@ -133,6 +134,7 @@ class CalendarService {
             $startDate = Carbon::parse($startDate);
         }
 
+        
         return $appointments = Appointment::query()
         ->when($selectedStaffId,fn($query,$staffId) => 
             $query->where('staff_id',$staffId)
@@ -145,6 +147,5 @@ class CalendarService {
 
         ->get() ?? collect();
 
-        
     }
 }

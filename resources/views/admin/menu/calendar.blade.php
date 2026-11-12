@@ -22,28 +22,38 @@
                 <tr>
                     <td>{{$timeList}}</td>
                     @foreach($days as $day)
-                        @foreach($appointments as $appointment)
                         @php
-                            $slot = $calendarData[$day->format('Y-m-d')][$timeList] ?? [];
-                            $isPast = $slot['isPast'] ?? false;
-                            $isBooked = $slot['isBooked'] ?? false;
+
+  
+                            $slotDateTime = \Carbon\Carbon::parse($day->format('Y-m-d') . ' ' . $timeList);
+                            $isPast = $slotDateTime->isPast();
+
+                            $matchedAppointment = $appointments->first(function ($appointment) use ($slotDateTime) {
+                
+                            return $slotDateTime->gte($appointment->start_at) 
+                            && $slotDateTime->lt($appointment->end_at);
+                        });
+
+
                         @endphp
                     <td>
                         @if($isPast)
                         <div>
                             <span>受付終了</span>
                         </div>
-                        @elseif($isBooked)
+                        @elseif($matchedAppointment)
                         <div>
                             <div class="tooltip-container">
                                     <a href="#">✕</a>
-                                    <span class="tooltip-text">顧客：{{ $appointment->user->name }}様
-                                        @foreach($appointment->services as $service)                                            
-                                        <br>{{ $service->name}}{{ $loop->last ? '' : ' , '}}
-                                        <br>{{ $service->formatted_duration }}
+                                    <span class="tooltip-text">顧客：{{ $matchedAppointment->user->name ?? ' '}}様
+                                        @foreach($matchedAppointment->services ?? [] as $service)                                            
+                                        <br>{{ $service->name ?? ' '}}{{ $loop->last ? '' : ' , '}}
+                                        <br>{{ $service->formatted_duration ?? ' ' }}
                                         @endforeach
-                                        <br>{{ $appointment->start_at->format('H:i')}} ～ {{ $appointment->end_at->format('H:i') }}
-                                        <br>{{ $appointment->staff->name }}</span>
+                                        
+                                        <br>{{ $matchedAppointment->start_at->format('H:i')}} ～ {{ $matchedAppointment->end_at->format('H:i') ?? ' ' }}
+                                        <br>{{ $matchedAppointment->staff->name ?? ' ' }}</span>
+                                        
                             </div>
                      
                         </div>
@@ -53,7 +63,7 @@
                         </div>
                         @endif
                     </td>
-                        @endforeach
+                        
                     @endforeach    
                 </tr>
                 @endforeach    
