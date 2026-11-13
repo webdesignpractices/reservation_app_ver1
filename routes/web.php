@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminMenuController;
 use App\Http\Controllers\Admin\AdminStaffController;
 use App\Http\Controllers\Admin\AdminCalendarController;
+use App\Http\Controllers\Admin\AdminCreateReservationController;
 //home画面へ遷移
 Route::get('/home',[AuthController::class,'backHome'])->name('home');
 //メニュー(service)画面表示
@@ -84,3 +85,5 @@ Route::post('/admin/staff/store',[AdminStaffController::class ,'store'])->name('
 Route::patch('/admin/staff/{staff}/updateStatus',[AdminStaffController::class ,'updateStatus'])->name('admin.staff.updateStatus');
 //管理者用カレンダー表示
 Route::get('/admin/reservation/index',[AdminCalendarController::class ,'index'])->name('admin.calendar.index');
+//管理者による予約作成画面遷移
+Route::get('/admin/reservation/create/', [AdminCreateReservationController::class ,'create'])->name('admin.create.reservation');

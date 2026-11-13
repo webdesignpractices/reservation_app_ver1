@@ -24,7 +24,6 @@
                     @foreach($days as $day)
                         @php
 
-  
                             $slotDateTime = \Carbon\Carbon::parse($day->format('Y-m-d') . ' ' . $timeList);
                             $isPast = $slotDateTime->isPast();
 
@@ -33,7 +32,6 @@
                             return $slotDateTime->gte($appointment->start_at) 
                             && $slotDateTime->lt($appointment->end_at);
                         });
-
 
                         @endphp
                     <td>
@@ -59,7 +57,7 @@
                         </div>
                         @else
                         <div>   
-                                <a href="#">〇</a>
+                                <a href="{{route('admin.create.reservation',['date' => $day->format('Y-m-d'), 'time' => $timeList])}}">〇</a>
                         </div>
                         @endif
                     </td>
