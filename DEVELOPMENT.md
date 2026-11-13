@@ -68,3 +68,11 @@ tinkerを起動する
 > use Illuminate\Support\Facades\Schema;
 > Schema::hasColumn('テーブル名', '確認したいカラム');
 を入力することで確認できる
+
+2026/11/12
+laravelのバージョンを確認したいとき
+./vendor/bin/sail artisan --version
+を実行
+ちなみにPHPのバージョンを確認したいときは
+php -v
+のみで確認可
