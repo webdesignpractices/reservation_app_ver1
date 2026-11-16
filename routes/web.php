@@ -86,4 +86,7 @@ Route::patch('/admin/staff/{staff}/updateStatus',[AdminStaffController::class ,'
 //管理者用カレンダー表示
 Route::get('/admin/reservation/index',[AdminCalendarController::class ,'index'])->name('admin.calendar.index');
 //管理者による予約作成画面遷移
-Route::get('/admin/reservation/create/', [AdminCreateReservationController::class ,'create'])->name('admin.create.reservation');
+Route::get('/admin/reservation/create', [AdminCreateReservationController::class ,'create'])->name('admin.create.reservation');
+//管理者による予約作成
+Route::post('/admin/reservation/store',[AdminCreateReservationController::class ,'store'])->name('admin.store.reservation');
+

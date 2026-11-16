@@ -76,3 +76,11 @@ laravelのバージョンを確認したいとき
 ちなみにPHPのバージョンを確認したいときは
 php -v
 のみで確認可
+
+2026/11/13
+seederに追加、上書きをした場合、
+./vendor/bin/sail php artisan db:seed
+DatabaceSeeder.phpに登録されているSeederを上から実行する
+既存のデータは消えない
+特定のファイルのみを動かしたい場合
+./vendor/bin/sail php artisan db:seed --class=UserSeeder

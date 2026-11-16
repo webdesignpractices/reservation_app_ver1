@@ -1,8 +1,11 @@
 <x-admin.layout>
     <x-slot:title>管理者用予約作成</x-slot:title>
-    <form action="#" method="post">
+    <form action="{{route('admin.store.reservation')}}" method="post">
         @csrf
     <div>
+        <p>開始日時：{{ $date }} {{ $time }}</p>
+        <input type="hidden" name="start_at" value="{{ $date }} {{ $time }}">
+
         <h1>メニューを選択</h1>
         @foreach($services as $service)
         <div  class="menu-container">
@@ -10,12 +13,9 @@
             {{in_array($service->id,old('service_ids',session('selected.service_ids', []))) ? 'checked' : ''}}>
             <label for="service_{{$service->id}}">
             <div>
-                <p>メニュー：<span>{{$service->name}}</span></p>
-                
-                <p>所要時間：<span>{{$service->formatted_duration}}</span></p>
-                
-                <p>料金:<span>{{$service->formatted_price}}</span></p>
-                
+                <p>メニュー：<span>{{$service->name}}</span></p>               
+                <p>所要時間：<span>{{$service->formatted_duration}}</span></p>                
+                <p>料金:<span>{{$service->formatted_price}}</span></p>                
             </div>
             </label>
         </div>
@@ -55,9 +55,13 @@
                     <label>ゲスト電話番号</label>
                     <input type="text" name="guest_tel">
                 </div>   
+                <div>
+                    <label>備考</label>
+                    <input type="text" name="memo" value="{{old("memo")}}">
+                </div>
             </div>
             <div class="next_button">
-                <button type="submit">予約内容を確認する</button>
+                <button type="submit">予約を確定する</button>
             </div>
     </div>
     </form>

@@ -50,8 +50,8 @@
                                         @endforeach
                                         
                                         <br>{{ $matchedAppointment->start_at->format('H:i')}} ～ {{ $matchedAppointment->end_at->format('H:i') ?? ' ' }}
-                                        <br>{{ $matchedAppointment->staff->name ?? ' ' }}</span>
-                                        
+                                        <br>{{ $matchedAppointment->staff->name ?? ' ' }}
+                                        <br>{{ $matchedAppointment->memo ?? '備考なし'}}</span>
                             </div>
                      
                         </div>
