@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     @vite(['resources/css/app.css','resources/js/app.js']) 
-    <title>{{$title}}</title>
+    <title>{{$title ?? 'トップページ'}}</title>
 </head>
     <header class = "header">
         <div class="logo">
-            <a href="{{route('home')}}">Hair Salon</a>
+            <a href="{{route('admin.dashboard')}}">Hair Salon</a>
         </div>
         <nav class="nav">
             <ul>
-                @auth
+                @auth('admin')
                 <li>
-                <form action="{{route('user.logout')}}" method="post">
+                <form action="{{route('admin.logout')}}" method="post">
                 @csrf
                 <button type="submit">ログアウト</button>
                 </form>
                 </li>
-                <li><a href="{{route('user.mypage')}}">マイページ</a></li>
                 @endauth
 
-                @guest
+                @guest('admin')
                 <li><a href="{{route('admin.login')}}">ログイン</a></li>
                 
                 @endguest

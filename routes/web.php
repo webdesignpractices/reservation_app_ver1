@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminMenuController;
 use App\Http\Controllers\Admin\AdminStaffController;
 use App\Http\Controllers\Admin\AdminCalendarController;
 use App\Http\Controllers\Admin\AdminCreateReservationController;
+
 //home画面へ遷移
 Route::get('/home',[AuthController::class,'backHome'])->name('home');
 //メニュー(service)画面表示
@@ -58,6 +59,10 @@ Route::post('/customer/appoint/post', [AppointmentController::class,'store'])->n
 Route::get('/admin/dashboard',[AdminDashboardController::class,'dashboard'])->name('admin.dashboard');
 //ログイン画面遷移
 Route::get('/admin/login',[LoginController::class,'index'])->name('admin.login');
+//login実施
+Route::post('/admin/login/post',[LoginController::class, 'login'])->name('admin.login.post');
+//logout実施
+Route::post('/admin/logout',[LoginController::class, 'logout'])->name('admin.logout');
 //施術メニュー画面
 Route::get('/admin/menus',[AdminMenuController::class,'index'])->name('admin.nav.menus.index');
 //施術メニュー新規作成画面へ遷移

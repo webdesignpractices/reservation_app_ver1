@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    @vite(['resources/css/app.css','resources/js/app.js'])  
-    <title>Admin_Login</title>
-</head>
-
-<x-admin.header />
-
-<body>
-    <div class="container">
-    <div class="main"> 
-        <form action="{{route('user.login.act')}}" method="post">  
+<x-admin.layout>
+        <form action="{{route('admin.login.post')}}" method="post">  
             @csrf   
             @if(session('login_message'))   
             <p class = "preloginerror">{{session('login_message')}}</p>   
@@ -21,15 +9,12 @@
              <p class="error">{{$message}}</p>
             @enderror 
             <div>
-                <label>メールアドレス</label>
-                <input type="email" name="email" value="{{old('email')}}">
+                <label>社員番号</label>
+                <input type="text" name="staff_code" value="{{old('staff_code')}}">
             </div>   
             <div>
                 <label>パスワード</label>
                 <input type="password" name="password">
             </div>            
             <button type="submit">ログインする</button>
-        </form>
-    </div>  
-</body>
-</html>
+</x-admin.layout>
