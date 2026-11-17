@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\AdminCalendarController;
 
 class CalendarService {
     public function getCalendarSkeleton(){
-        $isAdmin = Auth()->check() && auth()->user()->is_admin;
+        $isAdmin = auth('admin')->check() && auth('admin')->user()->is_admin;
 
         $dateInput = request()->query('date');
         try{
@@ -77,6 +77,7 @@ class CalendarService {
                 'nextWeek' => $nextWeek,
                 'startDate' => $startDate,
                 'isAdmin' => $isAdmin,
+                
         ];
     }
 
@@ -94,7 +95,7 @@ class CalendarService {
         ];
     }
 
-    public function getReservedData($isAdmin){
+    public function getReservedData($isAdmin,$staffId = null){
         
             $skeleton = $this->getCalendarSkeleton(); 
             $days = $skeleton['days'];
@@ -108,9 +109,25 @@ class CalendarService {
             foreach($timeLists as $timeList){
                 $datekey = $day->format('Y-m-d');
                 $slotStart = Carbon::parse($datekey .' '. $timeList);
-                $slotEnd = $slotStart->copy()->addminutes(30);
+                $existingAppointment = $appointments->first(function($appointment) use ($slotStart, $staffId){
+                    return $appointment->staff_id == $staffId 
+                    && $appointment->status !== 'cancelled'
+                    && $slotStart->between($appointment->start_at, $appointment->end_at, true);
+                });
 
-                $isPast = !$isAdmin && $slotStart->isPast();
+
+                if($existingAppointment){
+                    $status = '✕';
+                    $isAvalable = false;
+                }elseif($slotStart->isPast()){
+                    $status = ' ';
+                    $isAvalable = false;
+                }else{
+                    $status = '〇';
+                    $isAvalable = true;
+                }
+
+                $slotEnd = $slotStart->copy()->addminutes(30);
 
                 $isBooked = $appointments->contains(fn($appointment) => 
                 $slotStart->lt($appointment->end_at)
@@ -119,8 +136,10 @@ class CalendarService {
                 $calendarData[$datekey][$timeList] = [
                     'slotStart' => $slotStart,
                     'slotEnd' => $slotEnd,
-                    'isPast' => $isPast,
                     'isBooked' => $isBooked,
+                    'status' => $status,
+                    'isAvalable' => $isAvalable,
+                    'existingAppointment' => $existingAppointment,
                 ];
             }
         }

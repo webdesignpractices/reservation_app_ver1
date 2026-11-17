@@ -21,48 +21,45 @@
                 @foreach($timeLists as $timeList)
                 <tr>
                     <td>{{$timeList}}</td>
-                    @foreach($days as $day)
+                        @foreach($days as $day)
+
                         @php
 
-                            $slotDateTime = \Carbon\Carbon::parse($day->format('Y-m-d') . ' ' . $timeList);
-                            $isPast = $slotDateTime->isPast();
+                            $datekey = $day->format('Y-m-d');
+                            $slot = $calendarData[$datekey][$timeList] ?? null;
+                            $status = $slot['status'] ?? '〇';
+                            $appointment = $slot['appointment'] ?? null;
 
-                            $matchedAppointment = $appointments->first(function ($appointment) use ($slotDateTime) {
-                
-                            return $slotDateTime->gte($appointment->start_at) 
-                            && $slotDateTime->lt($appointment->end_at);
-                        });
 
                         @endphp
                     <td>
-                        @if($isPast)
-                        <div>
-                            <span>受付終了</span>
-                        </div>
-                        @elseif($matchedAppointment)
+                            @if($status === '✕' && $appointment)
                         <div>
                             <div class="tooltip-container">
                                     <a href="#">✕</a>
-                                    <span class="tooltip-text">顧客：{{ $matchedAppointment->user->name ?? ' '}}様
-                                        @foreach($matchedAppointment->services ?? [] as $service)                                            
+                                    <span class="tooltip-text">顧客：{{ $appointment->user->name ?? ' '}}様
+                                        @foreach($appointment->services ?? [] as $service)                                            
                                         <br>{{ $service->name ?? ' '}}{{ $loop->last ? '' : ' , '}}
                                         <br>{{ $service->formatted_duration ?? ' ' }}
                                         @endforeach
                                         
-                                        <br>{{ $matchedAppointment->start_at->format('H:i')}} ～ {{ $matchedAppointment->end_at->format('H:i') ?? ' ' }}
-                                        <br>{{ $matchedAppointment->staff->name ?? ' ' }}
-                                        <br>{{ $matchedAppointment->memo ?? '備考なし'}}</span>
+                                        <br>{{ $appointment->start_at->format('H:i')}} ～ {{ $appointment->end_at->format('H:i') ?? ' ' }}
+                                        <br>{{ $appointment->staff->name ?? ' ' }}
+                                        <br>{{ $appointment->memo ?? '備考なし'}}</span>
                             </div>
                      
                         </div>
-                        @else
+                            @elseif($status === ' ')
+                            <span class="pastOrdayoff">■</span>
+                            @else
                         <div>   
                                 <a href="{{route('admin.create.reservation',['date' => $day->format('Y-m-d'), 'time' => $timeList])}}">〇</a>
                         </div>
-                        @endif
-                    </td>
+                            @endif
                         
+                    </td>
                     @endforeach    
+                        
                 </tr>
                 @endforeach    
             </tbody>

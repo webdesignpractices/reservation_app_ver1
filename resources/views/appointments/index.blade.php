@@ -76,14 +76,14 @@
                         @foreach($days as $day)
                             @php
                             $slot = $calendarData[$day->format('Y-m-d')][$timeList] ?? [];
-                            $isPast = $slot['isPast'] ?? false;
-                            $isBooked = $slot['isBooked'] ?? false;                         
+                            $isPast = $slot['isPast'] ?? false;                           
+                            $isBooked = $slot['isBooked'] ?? false;
+                                                 
                             @endphp
                     <td>
-                                @if($isPast)
-                                    <span class = "">受付終了</span>
+                                
 
-                                @elseif($isBooked)
+                                @if($isBooked)
                                  <div class="tooltip-container">
                                     <span class="unavailable-mark">✕</span>
                                     <span class="tooltip-text">{{ $day->isoFormat('YYYY年MM月DD日') }}<br>開始:{{ $timeList }}</span>

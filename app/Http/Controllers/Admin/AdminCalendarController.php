@@ -27,7 +27,7 @@ class AdminCalendarController extends Controller
 
         $skeleton = $calendarService->getCalendarSkeleton($request);
         $sessionData = $calendarService->getConditionsFromSession();
-        $calendarData = $calendarService->getReservedData($isAdmin);
+        $calendarData = $calendarService->getReservedData($isAdmin,$sessionData['selectedStaffId']);
         $appointments = $calendarService->getAppointments(
         $skeleton['startDate'],
         $sessionData['selectedStaffId']);
@@ -41,7 +41,7 @@ class AdminCalendarController extends Controller
             'isAdmin' => $skeleton['isAdmin'],
             'selectedServices' => $sessionData['selectedServices'],
             'selectedStaff' => $sessionData['selectedStaff'],
-            'appointments' => $appointments,  
+            'appointments' => $appointments, 
             'calendarData' => $calendarData,     
             ]);
 
