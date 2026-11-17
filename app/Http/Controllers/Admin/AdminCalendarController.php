@@ -41,14 +41,15 @@ class AdminCalendarController extends Controller
             'isAdmin' => $skeleton['isAdmin'],
             'selectedServices' => $sessionData['selectedServices'],
             'selectedStaff' => $sessionData['selectedStaff'],
-            'appointments' => $appointments, 
+             
             'calendarData' => $calendarData,     
             ]);
 
     }
     public function reserved(Request $request, CalendarService $calendarService){
-        
-        $calendarData = $calendarService->getReservedData($request);
+        $isAdmin = auth('admin')->check() && auth('admin')->user()->is_admin;
+        $sessionData = $calendarService->getConditionFromSession();
+        $calendarData = $calendarService->getReservedData($isAdmin, $session['selectedStaffId']);
 
         return view('admin.menu.calendar',[
             'calendarData' => $calendarData,

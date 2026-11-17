@@ -100,7 +100,7 @@ class CalendarService {
             $skeleton = $this->getCalendarSkeleton(); 
             $days = $skeleton['days'];
             $timeLists = $skeleton['timeLists'];
-            $appointments = $this->getAppointments($days[0] ?? Carbon::today()) ?? collect();
+            $appointments = $this->getAppointments($days[0] ?? Carbon::today(),$staffId) ?? collect();
             
         
 
@@ -110,7 +110,9 @@ class CalendarService {
                 $datekey = $day->format('Y-m-d');
                 $slotStart = Carbon::parse($datekey .' '. $timeList);
                 $existingAppointment = $appointments->first(function($appointment) use ($slotStart, $staffId){
-                    return $appointment->staff_id == $staffId 
+
+                    $isStaffMatched = is_null($staffId) || $appointment->staff_id == $staffId;
+                    return $isStaffMatched 
                     && $appointment->status !== 'cancelled'
                     && $slotStart->between($appointment->start_at, $appointment->end_at, true);
                 });
@@ -120,7 +122,7 @@ class CalendarService {
                     $status = '✕';
                     $isAvalable = false;
                 }elseif($slotStart->isPast()){
-                    $status = ' ';
+                    $status = '過去';
                     $isAvalable = false;
                 }else{
                     $status = '〇';
@@ -139,7 +141,7 @@ class CalendarService {
                     'isBooked' => $isBooked,
                     'status' => $status,
                     'isAvalable' => $isAvalable,
-                    'existingAppointment' => $existingAppointment,
+                    'appointment' => $existingAppointment,
                 ];
             }
         }

@@ -49,7 +49,7 @@
                             </div>
                      
                         </div>
-                            @elseif($status === ' ')
+                            @elseif($status === '過去')
                             <span class="pastOrdayoff">■</span>
                             @else
                         <div>   
