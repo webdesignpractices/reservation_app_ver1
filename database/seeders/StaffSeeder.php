@@ -14,16 +14,16 @@ class StaffSeeder extends Seeder
      */
     public function run(): void
     {
-        Staff::create([
-            'staff_code' => 'L001',
-            'name' => '山本雅人',
-            'description' => '店長です。歴12年。カウンセリングをしっかり行い、お客様に満足していただけるよう頑張っています！',
+        Staff::updateOrCreate(
+            ['staff_code' => 'L001'],
+            ['name' => '山本雅人',
+            'description' => '店長です。歴12年。縮毛矯正、艶カラーが得意です！縮毛矯正のリピート率95%です！',
             'status' => StaffStatus::Active,
         ]);
-        Staff::create([
-            'staff_code' => 'A001',
-            'name' => '小林杏奈',
-            'description' => 'アシスタントをしています。シャンプー、ヘッドスパが好評です！',
+        Staff::updateOrCreate(
+            ['staff_code' => 'A001'],
+            ['name' => '小林杏奈',
+            'description' => '歴8年。ショート、ボブ、似合わせカットが得意です！',
             'status' => StaffStatus::Active,
         ]);
     }
