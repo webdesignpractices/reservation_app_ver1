@@ -33,7 +33,7 @@ class AppointmentController extends Controller
 
         $skeleton = $calendarService->getCalendarSkeleton($request);
         $sessionData = $calendarService->getConditionsFromSession();
-        $calendarData = $calendarService->getReservedData($isAdmin);
+        $calendarData = $calendarService->getReservedData($isAdmin,$sessionData['selectedStaffId']);
         $appointments = $calendarService->getAppointments(
         $skeleton['startDate'],
         $sessionData['selectedStaffId']);
@@ -214,7 +214,7 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
 
-        $appointment->delete();
+        $appointment->update(['status' => 'cancelled']);
 
         return redirect()->route('user.mypage');
     }
