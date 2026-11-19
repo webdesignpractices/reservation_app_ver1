@@ -50,7 +50,10 @@
                      
                         </div>
                             @elseif($status === '過去')
-                            <span class="pastOrdayoff">■</span>
+                                <div class="tooltip-container">
+                                    <span class= "pastOrdayoff">■</span>
+                                    <span class="tooltip-text">予約不可</span>
+                                </div>
                             @else
                         <div>   
                                 <a href="{{route('admin.create.reservation',['date' => $day->format('Y-m-d'), 'time' => $timeList])}}">〇</a>

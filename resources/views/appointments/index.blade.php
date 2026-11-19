@@ -75,21 +75,24 @@
                     <td>{{ $timeList }}</td>
                         @foreach($days as $day)
                             @php
-                            $slot = $calendarData[$day->format('Y-m-d')][$timeList] ?? [];
-                            $isPast = $slot['isPast'] ?? false;                           
-                            $isBooked = $slot['isBooked'] ?? false;
+                            $datekey = $day->format('Y-m-d');
+                            $slot = $calendarData[$datekey][$timeList] ?? null;
+                            $status = $slot['status'] ?? '〇';
+                            $appointment = $slot['appointment'] ?? null;
                                                  
                             @endphp
                     <td>
-                                
-
-                                @if($isBooked)
+                                @if($status === '✕' && $appointment)
                                  <div class="tooltip-container">
                                     <span class="unavailable-mark">✕</span>
                                     <span class="tooltip-text">{{ $day->isoFormat('YYYY年MM月DD日') }}<br>開始:{{ $timeList }}</span>
                                 </div>
+                                @elseif($status === '過去')
+                                <div class="tooltip-container">
+                                    <span class= "pastOrdayoff">■</span>
+                                    <span class="tooltip-text">予約不可</span>
+                                </div>
                                 @else
-
                                 @if(session('selected.service_ids'))
                                 <form action="{{route('appointments.index.session')}}" method="post">
                                     @csrf
@@ -103,11 +106,10 @@
                                         <span class="tooltip-text">{{$day->isoFormat('YYYY年MM月DD日')}}<br>開始:{{$timeList}}</span>
                                     </div>
                                 </form>
-                                @else
-                                <div class="tooltip-container">
-                                    <span class="available-mark">〇</span>
+                                    @else
+                                    <div class="tooltip-container">
+                                    <span">〇</span>
                                     <span class="tooltip-text">{{ $day->isoFormat('YYYY年MM月DD日') }}<br>開始:{{ $timeList }}</span>
-                                </div>
                                 @endif            
                     </td>
                                 
