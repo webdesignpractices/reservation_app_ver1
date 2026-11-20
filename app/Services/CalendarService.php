@@ -9,6 +9,7 @@ use App\Models\Staff;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Collection;
 use App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\StaffController;
@@ -96,26 +97,33 @@ class CalendarService {
     }
 
     public function getReservedData($isAdmin,$staffId = null){
-        
+
             $skeleton = $this->getCalendarSkeleton(); 
             $days = $skeleton['days'];
             $timeLists = $skeleton['timeLists'];
             $appointments = $this->getAppointments($days[0] ?? Carbon::today(),$staffId) ?? collect();
-            
-        
 
+            return $this->buildSingleStaffCalendarData($days, $timeLists, $appointments, $staffId);
+    }
+
+    public function buildSingleStaffCalendarData(array $days, array $timeLists,Collection $appointments, ?int $staffId = null) :array{
+        
         $calendarData = [];
         foreach($days as $day){
             foreach($timeLists as $timeList){
                 $datekey = $day->format('Y-m-d');
                 $slotStart = Carbon::parse($datekey .' '. $timeList);
-                $existingAppointment = $appointments->first(function($appointment) use ($slotStart, $staffId){
+                $slotEnd = $slotStart->copy()->addMinutes(30);
+                $existingAppointment = $appointments->first(function($appointment) use ($slotStart, $slotEnd, $staffId){
 
                     $isStaffMatched = is_null($staffId) || $appointment->staff_id == $staffId;
                     return $isStaffMatched 
                     && $appointment->status !== 'cancelled'
-                    && $slotStart->between($appointment->start_at, $appointment->end_at, true);
-                });
+                    && $slotStart->lt($appointment->end_at)
+                    && $slotEnd->gt($appointment->start_at);
+                
+                    });
+            
 
 
                 if($existingAppointment){
@@ -129,16 +137,11 @@ class CalendarService {
                     $isAvalable = true;
                 }
 
-                $slotEnd = $slotStart->copy()->addminutes(30);
-
-                $isBooked = $appointments->contains(fn($appointment) => 
-                $slotStart->lt($appointment->end_at)
-                && $slotEnd->gt($appointment->start_at)) ?? false;
+                
 
                 $calendarData[$datekey][$timeList] = [
                     'slotStart' => $slotStart,
                     'slotEnd' => $slotEnd,
-                    'isBooked' => $isBooked,
                     'status' => $status,
                     'isAvalable' => $isAvalable,
                     'appointment' => $existingAppointment,

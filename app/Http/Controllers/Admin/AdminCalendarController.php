@@ -40,20 +40,19 @@ class AdminCalendarController extends Controller
             'nextWeek' => $skeleton['nextWeek'],
             'isAdmin' => $skeleton['isAdmin'],
             'selectedServices' => $sessionData['selectedServices'],
-            'selectedStaff' => $sessionData['selectedStaff'],
-             
+            'selectedStaff' => $sessionData['selectedStaff'],            
             'calendarData' => $calendarData,     
             ]);
 
     }
     public function reserved(Request $request, CalendarService $calendarService){
         $isAdmin = auth('admin')->check() && auth('admin')->user()->is_admin;
-        $sessionData = $calendarService->getConditionFromSession();
-        $calendarData = $calendarService->getReservedData($isAdmin, $session['selectedStaffId']);
+        $sessionData = $calendarService->getConditionsFromSession();
+        $staffId = $sessionData['selectedaStaffId'] ?? null;
+        $calendarData = $calendarService->getReservedData($isAdmin, $staffId);
 
         return view('admin.menu.calendar',[
-            'calendarData' => $calendarData,
-            
+            'calendarData' => $calendarData,            
         ]);
     }
 

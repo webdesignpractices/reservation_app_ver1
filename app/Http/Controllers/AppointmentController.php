@@ -55,12 +55,13 @@ class AppointmentController extends Controller
     }
 
     public function reserved(Request $request, CalendarService $calendarService){
-        $isAdmin = auth()->check() && auth()->user()->is_admin;
+        $isAdmin = auth('admin')->check() && auth('admin')->user()->is_admin;
         $sessionData = $calendarService->getConditionsFromSession();
-        $calendarData = $calendarService->getReservedData($isAdmin, $session['selectedStaffId']);
+        $staffId = $sessionData['selectedaStaffId'] ?? null;
+        $calendarData = $calendarService->getReservedData($isAdmin, $staffId);
 
-        return view('appointments.index',[
-            'calendarData' => $calendarData,
+        return view('admin.menu.calendar',[
+            'calendarData' => $calendarData,            
         ]);
     }
 
